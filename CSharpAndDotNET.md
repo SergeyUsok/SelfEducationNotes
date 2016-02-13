@@ -8,12 +8,12 @@
 
 Есть 2 метода
 
-1. 1)**Execute(dynamic a, object b)**
-2. 2)**Execute(dynamic a, string b)**
+**_1) Execute(dynamic a, object b)_**
+**_2) Execute(dynamic a, string b)_**
 
-Переменная **object**** text **** = " ****string****"; **объявлена как** object **, поэтому будет вызван** 1). **Если бы переменная** text **была бы объявлена как** dynamic **, то вызвался бы** 2), **поскольку идет выяснение** действительного** типа переменной.
+Переменная **_object text = "string";_** объявлена как **object**, поэтому будет вызван **1)**. Если бы переменная **text** была бы объявлена как *_dynamic_*, то вызвался бы **2)**, поскольку идет выяснение *_действительного_* типа переменной.
 
-- Нужендля **reflection** , **COM interop** , **interop with dynamic languages**
+- Нужендля **reflection**, **COM interop**, **interop with dynamic languages**
 
 - Явная реализация интерфейсов и dynamic сочетаются плохо
 
