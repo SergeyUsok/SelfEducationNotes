@@ -30,7 +30,7 @@
 
 - Система типов C#1 является статической (с появлением **dynamic** есть изменения), явной ( **var** это изменил) и безопасной. ( **Jon Skeet** )
 
-- public event EventHandler Click = delegate {}; // делегатпоумолчанию
+- public event EventHandler Click = delegate {}; // делегат по умолчанию
 
 - просто к сведению:
 
