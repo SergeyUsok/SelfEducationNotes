@@ -17,13 +17,13 @@
 
 Алгоритмы:
 
-1. Minkowski Distance Metric
+_**1. Minkowski Distance Metric**_
 
  ![](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/DataMining/Minkowski.png)
 
-- Euclidean Distance when r=2
+  - Euclidean Distance when r=2
 
-- Manhattan Distance when r=1
+  - Manhattan Distance when r=1
 
 ```csharp
 public static double MinkowskiDistance(User target, User neighbor, double r)
@@ -39,11 +39,11 @@ public static double MinkowskiDistance(User target, User neighbor, double r)
 }
 ```
 
-4. Cosine Similarity
+_**2. Cosine Similarity**_
 
  ![](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/DataMining/Cosine.png) где ||x|| это ![](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/DataMining/Cosine_part2.png)
 
-3. Pearson Correlation Coefficient
+_**3. Pearson Correlation Coefficient**_
 
  ![](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/DataMining/PearsonCorrelation.png)
 
@@ -94,7 +94,7 @@ public static double MinkowskiDistance(User target, User neighbor, double r)
         }
 ```
 
-4. K-nearestneighbor
+_**4. K-nearestneighbor**_
 
 Этот алгоритм позволяет определять рекомендации на основании k ближайших соседей. Сначала считаем соседей и сортируем их по близости (можно использовать для подсчета любой из алгоритмов выше). Затем берем k первых соседей и рассчитываем проценты влияния каждого из соседей. Напр. k=3, коэффициенты влияния каждого **0.8 + 0.7 + 0.5 = 2.0** , тогда проценты 40%+35%+25% (отсчет идет от 2, т.е. 0.8/2 = 40%). Затем берем атрибуты каждого из пользователей (в данном случае все отмеченные ими песни) и высчитываем рейтинг каждой из них с использованием процента влияния:
 
