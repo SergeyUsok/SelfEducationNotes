@@ -61,6 +61,8 @@
 - **Task.Delay()** можно использовать как **timeout**. Например, var task = Task.WhenAny(BusinessTask, Task.Delay(3000)), где BusinessTask - это нужная там таска, второй параметр - это **timeout**. Таким образом, если первой закончится таска **Task.Delay(3000)**, то это можно обрабатывать как **timeout expiration**.
 - Метод PLINQ **ForAll()** отличается от обычного **foreach** тем, что он поребляет результаты в разных потоках, в то время как **foreach** обрабатывет все в одном потоке, в котором он собственнно и объявлен, поэтому предварительно необходимо объединить все результаты в один поток.
 Разница работы в схеме: https://i-msdn.sec.s-msft.com/dynimg/IC387953.jpeg
+- Платформа PLINQ не помещает одно исключение **OperationCanceledException** в исключение System.AggregateException. Исключение OperationCanceledException должно обрабатываться в отдельном блоке catch. Если один или несколько пользовательских делегатов создают исключение **OperationCanceledException()** и не создают другого исключения, а запрос был определен как AsParallel().WithCancellation(externalCT), PLINQ сгенерирует одно исключение **OperationCanceledException(externalCT)** вместо System.AggregateException. Однако если один пользовательский делегат создает исключение OperationCanceledException, а другой делегат создает другой тип исключения, оба исключения помещаются в AggregateException.
+- Чтобы обеспечить отклик системы, рекомендуется проверять **CancellationToken** из пользоватльского кода приблизительно каждую **миллисекунду**. Однако допускается любой период **до 10 миллисекунд**.Эта частота не должна оказывать отрицательное влияние на производительность кода
 
 ## C# 6.0 features:
 https://github.com/dotnet/roslyn/wiki/New-Language-Features-in-C%23-6
