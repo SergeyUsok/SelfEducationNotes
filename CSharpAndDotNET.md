@@ -72,7 +72,7 @@
 | Task Graph Lifecycle  | Parent Started -> Child Started -> Child Finished -> Parent Finished  | Parent Started -> Child Started -> Parent Finished -> Child Finished (or could be as in Attached)  |
 | Исключения в дочерних задачах распространяются до родителей  | **Yes**  | **No**  |
 | Состояние родительского объекта зависит от состояния дочернего объекта  | **Yes**  | **No**  |
-| Отмена Child приводит к отмене Parent, TaskCanceledException распространяется в ожидающий задачу поток | **Yes**  | **No**  |
+| Отмена Child приводит к отмене Parent, TaskCanceledException распространяется в ожидающий Parent задачу поток | **Yes**  | **No**  |
 
 ## C# 6.0 features:
 https://github.com/dotnet/roslyn/wiki/New-Language-Features-in-C%23-6
