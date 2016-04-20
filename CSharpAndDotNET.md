@@ -73,7 +73,7 @@
 | Исключения в дочерних задачах распространяются в вызывающий поток  | **Yes**  | **No**  |
 | Состояние родительского объекта зависит от состояния дочернего объекта  | **Yes**  | **No**  |
 | Отмена Child приводит к отмене Parent, TaskCanceledException распространяется в ожидающий Parent задачу поток | **Yes**  | **No**  |
-- **UnobservedTaskException** происходит когда Task с необработанным исключением наичнает собираться **GC**. Таким образом мы можем подписаться на событие **TaskScheduler.UnobservedTaskException** и обработать его в "последний момент" и не вадить процессс. Наччиная с **.NET 4.5** UnobservedTaskException не валит процесс. Изменение в app.config даст поведение как в **.NET 4.0** 
+- **UnobservedTaskException** происходит когда Task с необработанным исключением наичнает собираться **GC**. Таким образом мы можем подписаться на событие **TaskScheduler.UnobservedTaskException** и обработать его в "последний момент" и не вадить процессс. Начиная с **.NET 4.5** UnobservedTaskException не валит процесс. Изменение в app.config даст поведение как в **.NET 4.0** 
 
 ## C# 6.0 features:
 https://github.com/dotnet/roslyn/wiki/New-Language-Features-in-C%23-6
