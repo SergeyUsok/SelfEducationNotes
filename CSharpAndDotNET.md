@@ -70,7 +70,7 @@
 |  Category | Attached Tasks  | Detached Tasks |
 |---|---|---|
 | Task Graph Lifecycle  | Parent Started -> Child Started -> Child Finished -> Parent Finished  | Parent Started -> Child Started -> Parent Finished -> Child Finished (or could be as in Attached)  |
-| Исключения в дочерних задачах распространяются до родителей  | **Yes**  | **No**  |
+| Исключения в дочерних задачах распространяются в вызывающий поток  | **Yes**  | **No**  |
 | Состояние родительского объекта зависит от состояния дочернего объекта  | **Yes**  | **No**  |
 | Отмена Child приводит к отмене Parent, TaskCanceledException распространяется в ожидающий Parent задачу поток | **Yes**  | **No**  |
 
