@@ -73,7 +73,8 @@
 | Исключения в дочерних задачах распространяются в вызывающий поток  | **Yes**  | **No**  |
 | Состояние родительского объекта зависит от состояния дочернего объекта  | **Yes**  | **No**  |
 | Отмена Child приводит к отмене Parent, TaskCanceledException распространяется в ожидающий Parent задачу поток | **Yes**  | **No**  |
-- **UnobservedTaskException** происходит когда Task с необработанным исключением наичнает собираться **GC**. Таким образом мы можем подписаться на событие **TaskScheduler.UnobservedTaskException** и обработать его в "последний момент" и не валить процессс. Начиная с **.NET 4.5** UnobservedTaskException не валит процесс. Изменение в app.config даст поведение как в **.NET 4.0** 
+- **UnobservedTaskException** происходит когда Task с необработанным исключением наичнает собираться **GC**. Таким образом мы можем подписаться на событие **TaskScheduler.UnobservedTaskException** и обработать его в "последний момент" и не валить процессс. Начиная с **.NET 4.5** UnobservedTaskException не валит процесс. Изменение в app.config даст поведение как в **.NET 4.0**
+- Политика планирования задач: существует **GlobalQueue** (FIFO) для всех потоков ThreadPool'a и **LocalQueue**(LIFO) для каждого потока. В Global попадают Parent задачи, а в Local - Attached and Detached Child tasks. Если в Local очереди потока нет задач, они ищутся в Global, а если и там нет, то в Local очереди другого потока. **LongRunning** опция позволяет сказать, что задаче нужен выделенный поток и она точно не попадет в Local queue. 
 
 ## C# 6.0 features:
 https://github.com/dotnet/roslyn/wiki/New-Language-Features-in-C%23-6
