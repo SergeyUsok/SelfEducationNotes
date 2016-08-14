@@ -18,7 +18,7 @@
 
 Пример добавления 5:
 
-![Binary Tree Example](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_AddingNode.JPG)
+![Add node](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_AddingNode.JPG)
 
 ### Binary Tree Searhing node
 - Осуществляется также, как и добавление, то есть рекурсивно просматриваем дерево, пока не найдем или пока дерево не закончится.
@@ -35,14 +35,14 @@
 - Видим, что он не имеет правого потомка
 - Подниимаем вверх его левый потомок со всем его деревом
 
-![Binary Tree Example](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_Removing_Case1.JPG)
+![Removal case 1](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_Removing_Case1.JPG)
 
 2) Удаляем 6:
 - Найти удаляемый нод
 - Видим, что он не имеет левого потомка
 - Подниимаем вверх его правый потомок со всем его деревом
 
-![Binary Tree Example](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_Removing_Case2.JPG)
+![Removal case 2](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_Removing_Case2.JPG)
 
 3) Удаляем 6:
 - Найти удаляемый нод
@@ -52,4 +52,24 @@
 
 Мы поднимаем самый левый нод **(left-most child)**, так как мы знаем, что он самый меньший нод.
 
-![Binary Tree Example](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_Removing_Case3.JPG)
+![Removal case 3](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_Removing_Case3.JPG)
+
+### Binary Tree Traversal
+
+Существует три порядка посещения дерева:
+
+1) Pre-Order:
+
+![Pre Order](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_PreOrder_Traversal.JPG)
+  
+2) In-Order:
+Этот порядок дает возможность посещать дерева в порядке сортировки. То есть значения возврящается в отсортированном виде.
+Это наиболее часто применяемый порядок.
+
+![In Order](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_InOrder_Traversal.JPG)
+
+3) Post-Order:
+Этот порядок используется для расчета математических выражений или например компилятором при парсинге исходного кода.
+
+![Post Order](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_PostOrder_Traversal.JPG)
+
