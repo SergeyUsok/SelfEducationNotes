@@ -26,18 +26,28 @@
 ### Binary Tree Removing node 
 - Если удалаемый нод является **листом** (leaf), просто удалить ссылку на него из родительского нода.
 - Если нод НЕ является листом, существет 3 сценария:
-  - Удаляемый нод **не имеет правого** потомка
-  - Удаляемый нод **не имеет левого** потомка
-  - Удаляемый нод иммет и левого, и правого потомков.
+  - Удаляемый нод **не имеет правого** потомка (1)
+  - Удаляемый нод **не имеет левого** потомка (2)
+  - Удаляемый нод иммет и левого, и правого потомков (3)
 
 1) Удаляем 8:
+- Найти удаляемый нод
+- Видим, что он не имеет правого потомка
+- Подниимаем вверх его левый потомок со всем его деревом
 
 ![Binary Tree Example](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_Removing_Case1.JPG)
 
 2) Удаляем 6:
+- Найти удаляемый нод
+- Видим, что он не имеет левого потомка
+- Подниимаем вверх его правый потомок со всем его деревом
 
 ![Binary Tree Example](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_Removing_Case2.JPG)
 
 3) Удаляем 6:
+- Найти удаляемый нод
+- Видим, что он имеет оба потомка
+- Находим самый **последний левый потомок (left-most child)**
+- Заменяем удаляемый нод на найденный самый **последний левый потомок (left-most child)**
 
 ![Binary Tree Example](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_Removing_Case3.JPG)
