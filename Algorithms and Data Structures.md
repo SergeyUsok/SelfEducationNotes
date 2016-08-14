@@ -58,18 +58,15 @@
 
 Существует три порядка посещения дерева:
 
-1) Pre-Order:
+1) **Pre-Order**:
 
 ![Pre Order](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_PreOrder_Traversal.JPG)
   
-2) In-Order:
-Этот порядок дает возможность посещать дерева в порядке сортировки. То есть значения возврящается в отсортированном виде.
-Это наиболее часто применяемый порядок.
+2) **In-Order**. Этот порядок дает возможность посещать дерева в порядке сортировки. То есть значения возврящается в отсортированном виде. Это наиболее часто применяемый порядок:
 
 ![In Order](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_InOrder_Traversal.JPG)
 
-3) Post-Order:
-Этот порядок используется для расчета математических выражений или например компилятором при парсинге исходного кода.
+3) **Post-Order**. Этот порядок используется для расчета математических выражений или например компилятором при парсинге исходного кода и построении порядка вызова команд:
 
 ![Post Order](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_PostOrder_Traversal.JPG)
 
