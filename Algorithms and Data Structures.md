@@ -50,4 +50,6 @@
 - Находим самый **последний левый потомок (left-most child)**
 - Заменяем удаляемый нод на найденный самый **последний левый потомок (left-most child)**
 
+Мы поднимаем самый левый нод **(left-most child)**, так как мы знаем, что он самый меньший нод.
+
 ![Binary Tree Example](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_Removing_Case3.JPG)
