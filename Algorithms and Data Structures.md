@@ -5,7 +5,7 @@
 нод, из которого нужно удалить ссылку на последний.
 
 ### Binary Tree
-- В двоичном дереве **левый** нод всегда меньше, чем **root** и **правый** нод больше.
+- В двоичном дереве **левый** нод всегда меньше, чем **root**, а **правый** нод всегда больше.
 
 ![Binary Tree Example](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/AlgorithmsAndDataStructures/BinaryTree_Example.JPG)
 
