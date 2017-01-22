@@ -14,6 +14,8 @@ HTML контента под конкретный контроллер.
 4. Дефолтное отображение контроллера подгружается через публичный метод Index() определенный в контроллере
 5. В контроллере модно задавать другие public методы, которые будут отображаться как часть URL, то есть если определить метод Welcome,
 то его адрес будет http://localhost:54898/**My/Welcome**:
+6. Параметры следуют за знаком **?** и разделяются знаком **&**:
+http://localhost:54898/My/Welcome**?name=John&surname=Doe**
 
 > ASP.NET MVC invokes different controller classes (and different action methods within  them) depending on the incoming URL. 
 > The default URL routing logic used by ASP.NET  MVC uses a format like this to determine what code to invoke:
