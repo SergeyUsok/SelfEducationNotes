@@ -20,3 +20,7 @@ HTML контента под конкретный контроллер.
 > **/[Controller]/[ActionName]/[Parameters]**
 
 **You set the format for routing in the App_Start/RouteConfig.cs  file.**
+
+### Security Note: 
+**HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
+For more information see [How to: Protect Against Script Exploits in a Web Application by Applying HTML Encoding to Strings] (msdn.microsoft.com/en-us/library/a2a4yykt(v=vs.100).aspx)
