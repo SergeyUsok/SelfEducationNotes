@@ -65,6 +65,7 @@ public ActionResult Index()
 }
 ```
 Однако это можно переопределить с специфическом view или вообще убрать и layout'a не будет.
+
 **ViewBag** - это свойство класса ControllerBase. Это dynamic object, в который можно определять любые свойства. н используется для передачи данных из контроллера во view:
 ```csharp
 public ActionResult Welcome(string name, int numTimes = 1)
