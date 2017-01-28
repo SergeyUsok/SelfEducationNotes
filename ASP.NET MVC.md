@@ -65,7 +65,29 @@ public ActionResult Index()
 }
 ```
 Однако это можно переопределить с специфическом view или вообще убрать и layout'a не будет.
-**Layout**, **ViewBag** - это все свойства класса ControllerBase. Кроме того ViewBag позволяет передавать параеметры между специфичным View и Shared Layout.
+**ViewBag** - это свойство класса ControllerBase. Это dynamic object, в который можно определять любые свойства. н используется для передачи данных из контроллера во view:
+```csharp
+public ActionResult Welcome(string name, int numTimes = 1)
+{
+    ViewBag.Message = "Hello " + name;
+    ViewBag.NumTimes = numTimes;
+
+    return View();
+}
+```
+```html
+<h2>Welcome</h2>
+
+<ul>
+    @for (int i = 0; i < ViewBag.NumTimes; i++)
+    {
+        <li>@ViewBag.Message</li>
+    }
+</ul>
+```
+
+
+А также ViewBag позволяет передавать параметры между специфичным View и Shared Layout.
 
 Файл Views\\SpecificView.cshtml:
 ```html
