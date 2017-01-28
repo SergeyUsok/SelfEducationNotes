@@ -58,6 +58,13 @@ public ActionResult Index()
         </footer>
     </div>
 ```
+Папка Views содержит файл \_ViewStart.cshtml, который опредеялет layout для всех View, использующихся в проекте. Он содержит ссылку на shared layout view, поэтому нет смысла подключать shared layout view к специфическому view, поскольку оно возьмет layout из этого общего view:
+```html
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+```
+Однако это можно переопределить с специфическом view или вообще убрать и layout'a не будет.
 
 ### Security Note: 
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
