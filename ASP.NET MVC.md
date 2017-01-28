@@ -66,6 +66,7 @@ public ActionResult Index()
 ```
 Однако это можно переопределить с специфическом view или вообще убрать и layout'a не будет.
 **Layout**, **ViewBag** - это все свойства класса ControllerBase. Кроме того ViewBag позволяет передавать параеметры между специфичным View и Shared Layout.
+
 Файл Views\\SpecificView.cshtml:
 ```html
 @{
