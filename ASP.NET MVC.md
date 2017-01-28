@@ -65,6 +65,24 @@ public ActionResult Index()
 }
 ```
 Однако это можно переопределить с специфическом view или вообще убрать и layout'a не будет.
+**Layout**, **ViewBag** - это все свойства класса ControllerBase. Кроме того ViewBag позволяет передавать параеметры между специфичным View и Shared Layout.
+Файл Views\\SpecificView.cshtml:
+```html
+@{
+    ViewBag.Title = "My Title";
+}
+```
+Файл Views\\Shared\\\_Layout.cshtml :
+```html
+@{
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>@ViewBag.Title - My App</title>
+    <head>
+}
+```
+В итоге при переходе на сраницу SpecificView title будет **My Title - My App**
 
 ### Security Note: 
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
