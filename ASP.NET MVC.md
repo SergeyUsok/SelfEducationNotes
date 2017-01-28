@@ -12,8 +12,20 @@
 HTML контента под конкретный контроллер.
 3. Имя контроллера служит часть URL адреса страницы, то есть MyController будет по адресу http://localhost:port/**My**
 4. Дефолтное отображение контроллера подгружается через публичный метод Index() определенный в контроллере
+```csharp
+public string Index()
+{
+    return "This is my <b>default</b> action...";
+}
+```
 5. В контроллере модно задавать другие public методы, которые будут отображаться как часть URL, то есть если определить метод Welcome,
 то его адрес будет http://localhost:port/**My/Welcome**:
+```csharp
+public string Welcome(string name, string surname)
+{
+    return HttpUtility.HtmlEncode("Hello " + name + ", surname: " + surname);
+}
+```
 6. Параметры следуют за знаком **?** и разделяются знаком **&**. Такой механизм называется **query strings**, пример:
 http://localhost:port/My/Welcome**?name=John&surname=Doe**
 7. Кроме того, параметры можно посылать как часть URL адреса, но для этого нужно настроить Routes. То есть пример выше может выглядеть так:
