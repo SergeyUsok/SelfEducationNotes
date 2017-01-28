@@ -37,6 +37,17 @@ http://localhost:port/My/Welcome**/John/Doe**
 
 **You set the format for routing in the App_Start/RouteConfig.cs  file.**
 
+### Razor:
+Подходы описанные выше возвращают напрямую HTML-строку, что нарушает принцип MVC и смешивает представление и контроллер, кроме того так тяжело менеджить View. Для этих целей создан движок **Razor**.
+**Razor** - это движок, для создания шаблонов View, в которых можно писать html-код и C# код для динамической генерации страниц. Файл шаблона имеет расширение **.cshtml** и **должен** иметь такое же имя как и соответствующий контроллер. 
+В контроллере View подключается через создание объекта в соответствующем методе:
+```csharp
+public ActionResult Index() 
+{ 
+    return View(); 
+}
+```
+
 ### Security Note: 
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
 For more information see [How to: Protect Against Script Exploits in a Web Application by Applying HTML Encoding to Strings] (msdn.microsoft.com/en-us/library/a2a4yykt(v=vs.100).aspx)
