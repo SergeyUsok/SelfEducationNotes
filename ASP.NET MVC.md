@@ -150,6 +150,25 @@ public ActionResult Details(int? id)
     @Html.ActionLink("Back to List", "Index")
 </p>
 ```
+### Data Annotations
+Набор аттрибутов, как правило, применямый к моделям для определения различных метаданных и описания поведения членов модели в различных условиях. Пространство имен https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.aspx
+
+Пример:
+```csharp
+public class Movie
+{
+    public int ID { get; set; }
+    public string Title { get; set; }
+
+    [Display(Name = "Release Date")] // specifies how to display header for this property
+    [DataType(DataType.Date)] // describes type of property
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)] // describes how to show property value
+    public DateTime ReleaseDate { get; set; }
+    
+    public string Genre { get; set; }
+    public decimal Price { get; set; }
+}
+```
 
 ### Security Note: 
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
