@@ -37,7 +37,7 @@ http://localhost:port/My/Welcome**/John/Doe**
 
 **You set the format for routing in the App_Start/RouteConfig.cs  file.**
 
-### Razor:
+### Razor
 Подходы описанные выше возвращают напрямую HTML-строку, что нарушает принцип MVC и смешивает представление и контроллер, кроме того так тяжело менеджить View. Для этих целей создан движок **Razor**.
 
 **Razor** - это движок, для создания шаблонов View, в которых можно писать html-код и C# код для динамической генерации страниц. Файл шаблона имеет расширение **.cshtml** и **должен** иметь такое же имя как и соответствующий метод (action method), для которого шаблон определен. 
@@ -107,6 +107,49 @@ public ActionResult Welcome(string name, int numTimes = 1)
 }
 ```
 В итоге при переходе на сраницу SpecificView title будет **My Title - My App**
+
+### Strongly Typed Model in View
+Во View можно послать строго типизированную модель вместо использования ViewBag. Это даст возможность compile-time checks и включить  IntelliSense. Для этого в контроллере посылаем параметр во View:
+```csharp
+public ActionResult Details(int? id)
+{
+    if (id == null)
+    {
+        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+    }
+    Movie movie = db.Movies.Find(id);
+    if (movie == null)
+    {
+        return HttpNotFound();
+    }
+    return View(movie);
+}
+```
+А в самой View определяем тип модели через ключевое слово **@model** и работаем с ней:
+```html
+@model MvcMovie.Models.Movie
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Movie</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+         @*Markup omitted for clarity.*@        
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+```
 
 ### Security Note: 
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
