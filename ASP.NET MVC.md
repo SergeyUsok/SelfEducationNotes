@@ -151,7 +151,7 @@ public ActionResult Details(int? id)
 </p>
 ```
 ### Data Annotations
-Набор аттрибутов, как правило, применямый к моделям для определения различных метаданных и описания поведения членов модели в различных условиях. Пространство имен https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.aspx
+Набор аттрибутов, как правило, применямый к моделям для определения различных метаданных и описания поведения членов модели в различных условиях. Пространство имен https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.aspx.
 
 Пример:
 ```csharp
@@ -169,6 +169,51 @@ public class Movie
     public decimal Price { get; set; }
 }
 ```
+Кроме того, здесь же содержатся атрибуты для различных видов валидации данных модели. При определении какого-либо атрибута валидации правила валидации распространяются и на клиент (jquery validation) и на сервер, т.о. мы защищаемся от случая, когда на клиенте отключен javascript.
+
+Цитата Microsoft:
+
+>> What's really nice about this approach is that neither the controller nor the  Create view template knows anything about the actual >>validation rules being  enforced or about the specific error messages displayed. The validation rules  and the error strings are specified only in the Movie class. These  same validation rules are automatically applied to the Edit view and any other  views templates you might create that edit your model.
+
+>> If you want to change the validation logic later, you can do so in exactly  one place by adding validation attributes to the model (in this example, the movie class). You won't have to worry about different parts of the application  being inconsistent with how the rules are enforced — all validation logic will  be defined in one place and used everywhere. This keeps the code very clean, and  makes it easy to maintain and evolve. And it means that that you'll be fully  honoring the DRY principle.
+
+Несколько из множества атрибутов:
+ - StringLength - ограничивает длину строки
+ - RegularExpression - собственное регулярное выражение для валидации
+ - Required - обязательное поле
+ - Range - задает разрешенный диапазон значений
+ - DataType - задает тип для валидации, например Currency
+ - и т.д.
+
+Пример модели с DataAnnotations и валидацией:
+```csharp
+public class Movie
+{
+	public int ID { get; set; }
+
+	[StringLength(60, MinimumLength = 3)]
+	public string Title { get; set; }
+
+	[Display(Name = "Release Date")]
+	[DataType(DataType.Date)]
+	[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+	public DateTime ReleaseDate { get; set; }
+
+	[RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
+	[Required]
+	[StringLength(30)]
+	public string Genre { get; set; }
+
+	[Range(1, 100)]
+	[DataType(DataType.Currency)]
+	public decimal Price { get; set; }
+
+	[RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
+	[StringLength(5)]
+	public string Rating { get; set; }
+}
+```
+
 ### HTTP method attributes, BindAttribute, ValidateAntiForgeryToken
 В ASP.NET MVC существет несоклько аттрибутов, которые отражают Http методы (Put, Post, Delete, Head, Get). Они применяются к методам контроллера. Кроме того, HttpGet атрибут по-умолчанию всегда присутствует, поэтому он явно не пишется:
 - \[HttpPost\]
@@ -244,7 +289,7 @@ View:
 ```
 
 ### Миграции 
-Entity Framework предовтавляет механизм миграций, когда надо поменять что-то в таблицах базы данных мы меням сущности в коде и таким образом эти изменения мапятся и отображаются в базе данных. Например, если надо добавить еще одно свойство в объект (т.е. колонку в таблицу) мы добавляем это свойство, включаем возмодность миграции для нашего проекта, создаем файл миграции через nuget консоль и обновляем таблицу. Тоже самое можно делать, если необходимо поменять тип свойства (поля таблицы) или добавить какие-то ограницения для валидации. Подробнее здесь: https://www.asp.net/mvc/overview/getting-started/introduction/adding-a-new-field
+Entity Framework предоставляет механизм миграций, когда надо поменять что-то в таблицах базы данных мы меням сущности в коде и таким образом эти изменения мапятся и отображаются в базе данных. Например, если надо добавить еще одно свойство в объект (т.е. колонку в таблицу) мы добавляем это свойство, включаем возмодность миграции для нашего проекта, создаем файл миграции через nuget консоль и обновляем таблицу. Тоже самое можно делать, если необходимо поменять тип свойства (поля таблицы) или добавить какие-то ограницения для валидации. Подробнее здесь: https://www.asp.net/mvc/overview/getting-started/introduction/adding-a-new-field
 
 ### Security Note: 
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
