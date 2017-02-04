@@ -180,6 +180,8 @@ public class Movie
 **BindAttribute** применяется для предоставления сведений о том, как должна осуществляться привязка модели к параметру формы и аргументу метода. Кроме того, этот атрибут является выжным механизмом безопасности, защищающим от overposting'а. Пример будет ниже.
 
 **ValidateAntiForgeryToken** - это атрибут который применяется в паре с вызовом **@Html.AntiForgeryToken()** во View. Атрибут предусматривает ситуацию, когда пользователь ввел данные форму, отправил ее, но она не прошла валидацию и вернулсь назад пользователю. Чтобы пользователь заново не вводил данные атрибут вклюяает механизм заполнения формы уже ранее введенными данными.
+@Html.AntiForgeryToken()  генерирует скрытый токен формы который должен совпадать с соответствующим параеметром метода в контроллере. Данный механизм позволяет защититься от атак Cross-site request forgery (also known as XSRF or CSRF).
+
 Controller:
 ```csharp
 [HttpPost]
@@ -196,7 +198,7 @@ public ActionResult Edit([Bind(Include="ID,Title,ReleaseDate,Genre,Price")] Movi
 }
 ```
 View:
-```cshtml
+```html
 @model MvcMovie.Models.Movie
 
 @{
@@ -219,6 +221,7 @@ View:
                 @Html.ValidationMessageFor(model => model.Title)
             </div>
         </div>
+.......
 ```
 
 ### HtmlHelper
