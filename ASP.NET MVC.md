@@ -169,6 +169,14 @@ public class Movie
     public decimal Price { get; set; }
 }
 ```
+### HTTP method attributes
+В ASP.NET MVC существет несоклько аттрибутов, которые отражают Http методы (Put, Post, Delete, Head, Get). Они применяются к методам контроллера. Кроме того, HttpGet атрибут по-умолчанию всегда присутствует, поэтому он явно не пишется:
+- \[HttpPost\]
+- \[HttpPut\]
+- \[HttpDelete\]
+- \[HttpGet\]
+- etc.
+
 ### HtmlHelper
 Класс **HtmlHelper** используется для облегчения работы с HTML контролами и их ренедеринга. Имеет множество extension методов, на которые стоит обратить внимание. Объект HtmlHelper находится в свойстве **Html** базового класса System.Web.Mvc.WebViewPage. Пример:
 ```html
