@@ -243,6 +243,9 @@ View:
 </p>
 ```
 
+### Миграции 
+Entity Framework предовтавляет механизм миграций, когда надо поменять что-то в таблицах базы данных мы меням сущности в коде и таким образом эти изменения мапятся и отображаются в базе данных. Например, если надо добавить еще одно свойство в объект (т.е. колонку в таблицу) мы добавляем это свойство, включаем возмодность миграции для нашего проекта, создаем файл миграции через nuget консоль и обновляем таблицу. Тоже самое можно делать, если необходимо поменять тип свойства (поля таблицы) или добавить какие-то ограницения для валидации. Подробнее здесь: https://www.asp.net/mvc/overview/getting-started/introduction/adding-a-new-field
+
 ### Security Note: 
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
 For more information see [How to: Protect Against Script Exploits in a Web Application by Applying HTML Encoding to Strings] (msdn.microsoft.com/en-us/library/a2a4yykt(v=vs.100).aspx)
