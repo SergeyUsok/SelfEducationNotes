@@ -169,13 +169,57 @@ public class Movie
     public decimal Price { get; set; }
 }
 ```
-### HTTP method attributes
+### HTTP method attributes, BindAttribute, ValidateAntiForgeryToken
 В ASP.NET MVC существет несоклько аттрибутов, которые отражают Http методы (Put, Post, Delete, Head, Get). Они применяются к методам контроллера. Кроме того, HttpGet атрибут по-умолчанию всегда присутствует, поэтому он явно не пишется:
 - \[HttpPost\]
 - \[HttpPut\]
 - \[HttpDelete\]
 - \[HttpGet\]
 - etc.
+
+**BindAttribute** применяется для предоставления сведений о том, как должна осуществляться привязка модели к параметру формы и аргументу метода. Кроме того, этот атрибут является выжным механизмом безопасности, защищающим от overposting'а. Пример будет ниже.
+
+**ValidateAntiForgeryToken** - это атрибут который применяется в паре с вызовом **@Html.AntiForgeryToken()** во View. Атрибут предусматривает ситуацию, когда пользователь ввел данные форму, отправил ее, но она не прошла валидацию и вернулсь назад пользователю. Чтобы пользователь заново не вводил данные атрибут вклюяает механизм заполнения формы уже ранее введенными данными.
+Controller:
+```csharp
+[HttpPost]
+[ValidateAntiForgeryToken]
+public ActionResult Edit([Bind(Include="ID,Title,ReleaseDate,Genre,Price")] Movie movie)
+{
+    if (ModelState.IsValid)
+    {
+        db.Entry(movie).State = EntityState.Modified;
+        db.SaveChanges();
+        return RedirectToAction("Index");
+    }
+    return View(movie);
+}
+```
+View:
+```cshtml
+@model MvcMovie.Models.Movie
+
+@{
+    ViewBag.Title = "Edit";
+}
+<h2>Edit</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()    
+    <div class="form-horizontal">
+        <h4>Movie</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+        </div>
+```
 
 ### HtmlHelper
 Класс **HtmlHelper** используется для облегчения работы с HTML контролами и их ренедеринга. Имеет множество extension методов, на которые стоит обратить внимание. Объект HtmlHelper находится в свойстве **Html** базового класса System.Web.Mvc.WebViewPage. Пример:
