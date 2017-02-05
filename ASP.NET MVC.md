@@ -224,7 +224,7 @@ public class Movie
 
 **BindAttribute** применяется для предоставления сведений о том, как должна осуществляться привязка модели к параметру формы и аргументу метода. Кроме того, этот атрибут является выжным механизмом безопасности, защищающим от overposting'а. Пример будет ниже.
 
-**ValidateAntiForgeryToken** - это атрибут который применяется в паре с вызовом **@Html.AntiForgeryToken()** во View. Атрибут предусматривает ситуацию, когда пользователь ввел данные форму, отправил ее, но она не прошла валидацию и вернулсь назад пользователю. Чтобы пользователь заново не вводил данные атрибут вклюяает механизм заполнения формы уже ранее введенными данными.
+**ValidateAntiForgeryToken** - это атрибут, который применяется в паре с вызовом **@Html.AntiForgeryToken()** во View. Атрибут является **фильтром** (см. ниже) и предусматривает ситуацию, когда пользователь ввел данные форму, отправил ее, но она не прошла валидацию и вернулсь назад пользователю. Чтобы пользователь заново не вводил данные атрибут вклюяает механизм заполнения формы уже ранее введенными данными.
 @Html.AntiForgeryToken()  генерирует скрытый токен формы который должен совпадать с соответствующим параеметром метода в контроллере. Данный механизм позволяет защититься от атак Cross-site request forgery (also known as XSRF or CSRF).
 
 Controller:
@@ -287,6 +287,27 @@ View:
     @Html.ActionLink("Back to List", "Index")
 </p>
 ```
+### Filters
+Фильтры позволяют добавить некоторую логику перед вызовом action'a или после него, то есть некий пре- и постпроцессинг. Фильтры реализованы как атрибуты, благодаря чему позволяют уменьшить объем кода в контроллере, т.е. фильтр вызывается автоматически и код его вызова не надо писать в каждом методе. Данные атрибуты могут применяться как ко всему классу, так и к отдельным его методам, свойствам и полям
+
+В MVC реализовано 4 типа фильтров:
+- Authorization filters. These implement **IAuthorizationFilter** and make security decisions about whether to execute an action method, such as performing authentication or validating properties of the request. The **AuthorizeAttribute** class and the **RequireHttpsAttribute** class are examples of an authorization filter. Authorization filters run before any other filter.
+
+- Action filters. These implement **IActionFilter** and wrap the action method execution. The IActionFilter interface declares two methods: OnActionExecuting and OnActionExecuted. OnActionExecuting runs before the action method. OnActionExecuted runs after the action method and can perform additional processing, such as providing extra data to the action method, inspecting the return value, or canceling execution of the action method.
+
+- Result filters. These implement **IResultFilter** and wrap execution of the ActionResult object. IResultFilter declares two methods: OnResultExecuting and OnResultExecuted. OnResultExecuting runs before the ActionResult object is executed. OnResultExecuted runs after the result and can perform additional processing of the result, such as modifying the HTTP response. The **OutputCacheAttribute** class is one example of a result filter.
+
+- Exception filters. These implement **IExceptionFilter** and execute if there is an unhandled exception thrown during the execution of the ASP.NET MVC pipeline. Exception filters can be used for tasks such as logging or displaying an error page. The **HandleErrorAttribute** class is one example of an exception filter.
+
+Класс Controller реализует все эти интерфейсы, т.о. методы этих интерфейсов могут быть переопределены в унаследованном контроллере.
+
+Filters run in the following order:
+1. Authorization filters
+2. Action filters
+3. Response filters
+4. Exception filters
+
+Можно создавать свои собственные фильтры. Кроме того, выполнение фильтров можно отменять. Подробнее здесь https://msdn.microsoft.com/en-us/library/gg416513(VS.98).aspx
 
 ### Code First Approach
 Entity Framework дает возможность создать базу данных с таблицами автоматически, основываясь на сущностях в коде и их отношениях между собой (один-ко-многим, один-к-одному и т.д.)
