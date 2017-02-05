@@ -302,9 +302,13 @@ View:
 Класс Controller реализует все эти интерфейсы, т.о. методы этих интерфейсов могут быть переопределены в унаследованном контроллере.
 
 Filters run in the following order:
+
 1. Authorization filters
+
 2. Action filters
+
 3. Response filters
+
 4. Exception filters
 
 Можно создавать свои собственные фильтры. Кроме того, выполнение фильтров можно отменять. Подробнее здесь https://msdn.microsoft.com/en-us/library/gg416513(VS.98).aspx
