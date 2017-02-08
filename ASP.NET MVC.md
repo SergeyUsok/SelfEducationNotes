@@ -320,8 +320,16 @@ OWIN - Open Web Interface for .NET. OWIN - это стандарт, а **Katana*
 
 Класс **Startup** в проекте MVC является точкой входа в приложение со стороны хостинга (IIS, Console etc.). Класс должен содержать метод **Configuration**, который принимает интерфейс **IAppBuilder** как аргумент.
 
+Для работы OWIN использует модули, которые могут писаться сторонним разработчиком. Эти модули соединяются в pipeline, цепоска вызовов которого как раз настраивается **Configure** с помощью вызовов **IAppBuilder.Use()** с нужным модулем. Поскольку OWIN это спецификация, она задает интерфейс взаимодействия между модулями, основной которого является **Func\<IDictionary\<string, object\>,Task\> (так называемый AppFunc)**. IDictionary\<string, object> содержит всю envorinment информацию (url, request, response etc.). 
+Порядок определения модулей (обработчиков) в методе Configure - **важен**.
+
+Сами модули можно определять как классы, которые обязаны:
+- иметь конструктор принимающий AppFunc
+- иметь метод Task _Invoke(IDictionary\<string, object\> environment)_, в котором должна содержаться вся логика модуля
+Также модули модно определять как делегаты в перегрузе метода Use(). 
+
 ```csharp
-public partial class Startup
+    public partial class Startup
     {
         public void ConfigureAuth(IAppBuilder app)
         {
@@ -335,6 +343,9 @@ public partial class Startup
         }
     }
 ```
+Пример выше содержит определение 2 модулей, цепочка вызовов которых будет следующей:
+UseCookieAuthentication -/> UseExternalSignInCookie
+Оба метода являются методами расширения к стандартному методу Use и просто упрощают чтение кода.
 
 ### Security Note: 
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
