@@ -330,9 +330,9 @@ OWIN - Open Web Interface for .NET. OWIN - это стандарт, а **Katana*
 Также модули модно определять как делегаты в перегрузе метода Use(). 
 
 ```csharp
-    public partial class Startup
+    public class Startup
     {
-        public void ConfigureAuth(IAppBuilder app)
+        public void Configure(IAppBuilder app)
         {
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
