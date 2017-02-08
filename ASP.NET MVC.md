@@ -343,10 +343,8 @@ OWIN - Open Web Interface for .NET. OWIN - это стандарт, а **Katana*
         }
     }
 ```
-Пример выше содержит определение 2 модулей, цепочка вызовов которых будет следующей:
-
-UseCookieAuthentication -> UseExternalSignInCookie
-
+Пример выше содержит определение 2 модулей, цепочка вызовов которых будет следующей: <br />
+UseCookieAuthentication -> UseExternalSignInCookie <br />
 Оба метода являются методами расширения к стандартному методу Use и просто упрощают чтение кода.
 
 ### Security Note: 
