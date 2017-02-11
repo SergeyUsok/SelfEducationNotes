@@ -348,6 +348,9 @@ OWIN - Open Web Interface for .NET. OWIN - это стандарт, а **Katana*
 UseCookieAuthentication -> UseExternalSignInCookie <br />
 Оба метода являются методами расширения к стандартному методу Use и просто упрощают чтение кода.
 
+### Entity Framework notes
+1. EF позволяет перехватывать сгенерированные команды, которые отправляются на SQL Server. Перехваченные команды можно логировать, менять и совершать какие-либо другие оперции с ними. Можно создавать несколько перезватчиков, которые вызываюся по очереди в порядке их добавления. Для создания перехватчика надо отнаследоваться от класса **DbCommandInterceptor** и переорпеделить необходимые методы, а также добавить экземпляр этого класса в список перехватчиков в _static_ метод _static_ класса **DbInterception.Add()*.
+
 ### Security Note: 
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
 For more information see [How to: Protect Against Script Exploits in a Web Application by Applying HTML Encoding to Strings] (msdn.microsoft.com/en-us/library/a2a4yykt(v=vs.100).aspx)
