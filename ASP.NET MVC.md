@@ -353,7 +353,7 @@ UseCookieAuthentication -> UseExternalSignInCookie <br />
 2. Property без публичного сеттера игнорируются Entity Framework.
 3. Можно явно задать имя колонки с помощью атрибута Column. Также существуют атрибуты Key, ForeignKey.
 4. A **navigation property** is an optional property on an entity type that allows for navigation from one end of an association to the other end
-5. Если **navigation property** сделать как **virtual**, то EF автоматически включает lazy loading.
+5. Если **navigation property** сделать как **virtual**, то EF автоматически включает **lazy loading**. Также существует **eagier loading** и **explicit loading**. Какой из трех применять, зависит от кнтекста задачи, у всх есть достоинства и недостатки.
 6. EF поддерживает [Fluent API] (https://blogs.msdn.microsoft.com/aspnetue/2011/05/04/entity-framework-code-first-tutorial-supplement-what-is-going-on-in-a-fluent-api-call/). Fluent API может заменить собой атрибуты на моделях, плюс имеет дополнительные возможности. 
 
 ### Security Note: 
