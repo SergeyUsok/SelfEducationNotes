@@ -350,6 +350,9 @@ UseCookieAuthentication -> UseExternalSignInCookie <br />
 
 ### Entity Framework notes
 1. EF позволяет перехватывать сгенерированные SQL команды, которые отправляются на SQL Server. Перехваченные команды можно логировать, менять и совершать какие-либо другие оперции с ними. Можно создавать несколько перезватчиков, которые вызываюся по очереди в порядке их добавления. Для создания перехватчика надо отнаследоваться от класса **DbCommandInterceptor** и переорпеделить необходимые методы, а также добавить экземпляр этого класса в список перехватчиков в _static_ метод _static_ класса **DbInterception.Add()**.
+2. Property без публичного сеттера игнорируются Entity Framework.
+3. Можно явно задать имя колонки с помощью атрибута Column. Также существуют атрибуты Key, ForeignKey.
+4. Если в зависимом объекте (тот, который имеет foreign key) сделать свойство на того, на кого он зависит как **virtual**, то EF автоматически включает lazy loading.
 
 ### Security Note: 
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
