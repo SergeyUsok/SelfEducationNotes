@@ -355,6 +355,7 @@ UseCookieAuthentication -> UseExternalSignInCookie <br />
 4. A **navigation property** is an optional property on an entity type that allows for navigation from one end of an association to the other end
 5. Если **navigation property** сделать как **virtual**, то EF автоматически включает **lazy loading**. Также существует **eagier loading** и **explicit loading**. Какой из трех применять, зависит от кнтекста задачи, у всх есть достоинства и недостатки.
 6. EF поддерживает [Fluent API] (https://blogs.msdn.microsoft.com/aspnetue/2011/05/04/entity-framework-code-first-tutorial-supplement-what-is-going-on-in-a-fluent-api-call/). Fluent API может заменить собой атрибуты на моделях, плюс имеет дополнительные возможности. 
+7. EF поддерживает использование транзакций.
 
 #### Entity Framework handling concurrency
 2 подхода по управлению параллелизмом:
@@ -384,6 +385,13 @@ public class Entity
 ```
 
 2) Также можно сконфигурировать EF добавлять **каждую** колонку в условие Where для Update и Delete команд. Для таблиц и сущностей с большим количеством колонок (свойств) данный метод требует обработки большого количества состояний, ведет к большим запросам в Where и может просадиь производительность. Поэтому он не рекомендуется к использованию. Если все же необходимо применить данный подход, надо на все свойств, которые должны попасть в Where, применть атрибут **ConcurrencyCheck**
+
+#### Entity Framework handling inheritance
+Сущности для EF отображенные в коде в виде объектов могут иметь похожие свойства. Например, сущности Student и Teacher будет иметь свойства FirstName и LastName. Это приводит к повторениям в коде. Можно вывести базовый класс Person. EF поддерживает наследование для сущностей базы данных. Есть три способа отразить наследование в базе данных:
+
+1. TPH (table-per-hierarchy) - одна общая таблица для всех унаследованных типов (то есть таблица Person), которая содержит колонки для всех свойств всех унаследованных типов. Обычно здесь используются _discriminator column_ для того, чтобы понять какому конкретному типу соответствует данныя колонка. Этот паттерн используется по умолчанию в EF.
+2. TPT (table-per-type) - имитация наследования в БД, когда есть общая таблица Person с общими колонками, и 2 таблицы Student и Teacher c foreign key на таблицу Person. Данный подход может просадить производительность ввиду наличия join'ов, так как в коде будет идти работа с конкретным типом, а не абстрактным базовым, а значит поля из общей таблицы всегда будут нужны.
+3. TPC (еable-per-сoncrete Class) - таблицы создаются только для конкретных типов и они содержат, в том числе, общие свойства. Это приводит к некоторой повторяемсоти колонок в разных таблицах, но для БД это не страшно. В данном примере будут только 2 таблицы Student и Teacher. 
 
 ### Security Note: 
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
