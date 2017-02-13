@@ -356,6 +356,8 @@ UseCookieAuthentication -> UseExternalSignInCookie <br />
 5. Если **navigation property** сделать как **virtual**, то EF автоматически включает **lazy loading**. Также существует **eagier loading** и **explicit loading**. Какой из трех применять, зависит от кнтекста задачи, у всх есть достоинства и недостатки.
 6. EF поддерживает [Fluent API] (https://blogs.msdn.microsoft.com/aspnetue/2011/05/04/entity-framework-code-first-tutorial-supplement-what-is-going-on-in-a-fluent-api-call/). Fluent API может заменить собой атрибуты на моделях, плюс имеет дополнительные возможности. 
 7. EF поддерживает использование транзакций.
+8. EF поддерживает использование SQL запросов напрямую в базу. Подробнее [Performing Raw SQL queries] (https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/advanced-entity-framework-scenarios-for-an-mvc-web-application#rawsql)
+9. По умолчанию EF трекает изменения в объектах по сравнению с данными в базе. Это поведение можно отключить: [No-Tracking Queries] (https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/advanced-entity-framework-scenarios-for-an-mvc-web-application#notracking)
 
 #### Entity Framework handling concurrency
 2 подхода по управлению параллелизмом:
