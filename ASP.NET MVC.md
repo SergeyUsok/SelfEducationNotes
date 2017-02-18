@@ -167,6 +167,53 @@ public ActionResult Details(int? id)
 
 Partial View также поддерживают строго типизированные модели.
 
+#### Html Helpers
+Класс **HtmlHelper** используется для облегчения работы с HTML контролами и их ренедеринга. Имеет множество extension методов, на которые стоит обратить внимание. Объект HtmlHelper находится в свойстве **Html** базового класса System.Web.Mvc.WebViewPage. Пример:
+```html
+<div>
+    <h4>Movie</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+         @*Markup omitted for clarity.*@        
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+```
+Можно определять свои extension методы для облегчения рендеринга HTML:
+```csharp
+// Render <img /> tag
+public static MvcHtmlString Image(this HtmlHelper html, string src, string alt)
+{
+    TagBuilder img = new TagBuilder("img");
+    img.MergeAttribute("src", src);
+    img.MergeAttribute("alt", alt);
+    return MvcHtmlString.Create(img.ToString(TagRenderMode.SelfClosing));
+}
+```
+Кроме того, можно определять свои helper методы прямо в коде View c помощью директивы **@helper**.
+```html
+@helper BookList(IEnumerable<BookStore.Models.Book> books)
+{
+    <ul>
+        @foreach (BookStore.Models.Book b in books)
+        {
+            <li>@b.Name</li>
+        }
+    </ul>
+}
+<h3>Books list</h3>
+@BookList(ViewBag.Books)
+<!-- for strongly typed Model -->
+@BookList(Model)
+```
+Проблема данного способа в том, что оно смешивает коди представление. Чтобы как-то отделить подобные хелперы от view можно определить их в отдельном cshtml файле в папке **App_Code**. Это специально зарезервированное имя папки для HTML-хелперов. Внутри папки можно создать файл, например, Helpers.cshtml и там их определять.
+
 ### Data Annotations
 Набор аттрибутов, как правило, применямый к моделям для определения различных метаданных и описания поведения членов модели в различных условиях. Пространство имен https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.aspx.
 
@@ -284,25 +331,6 @@ View:
             </div>
         </div>
 .......
-```
-
-### HtmlHelper
-Класс **HtmlHelper** используется для облегчения работы с HTML контролами и их ренедеринга. Имеет множество extension методов, на которые стоит обратить внимание. Объект HtmlHelper находится в свойстве **Html** базового класса System.Web.Mvc.WebViewPage. Пример:
-```html
-<div>
-    <h4>Movie</h4>
-	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-         @*Markup omitted for clarity.*@        
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
 ```
 ### Filters
 Фильтры позволяют добавить некоторую логику перед вызовом action'a или после него, то есть некий пре- и постпроцессинг. Фильтры реализованы как атрибуты, благодаря чему позволяют уменьшить объем кода в контроллере, т.е. фильтр вызывается автоматически и код его вызова не надо писать в каждом методе. Данные атрибуты могут применяться как ко всему классу, так и к отдельным его методам, свойствам и полям
