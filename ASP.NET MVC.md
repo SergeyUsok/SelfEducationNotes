@@ -18,7 +18,7 @@ public string Index()
     return "This is my <b>default</b> action...";
 }
 ```
-5. В контроллере модно задавать другие public методы, которые будут отображаться как часть URL, то есть если определить метод Welcome,
+5. В контроллере можно задавать другие public методы, которые будут отображаться как часть URL, то есть если определить метод Welcome,
 то его адрес будет http://localhost:port/**My/Welcome**:
 ```csharp
 public string Welcome(string name, string surname)
@@ -30,6 +30,7 @@ public string Welcome(string name, string surname)
 http://localhost:port/My/Welcome**?name=John&surname=Doe**
 7. Кроме того, параметры можно посылать как часть URL адреса, но для этого нужно настроить Routes. То есть пример выше может выглядеть так:
 http://localhost:port/My/Welcome**/John/Doe**
+8. View подгружаеются из папки Views -> подпапка с именем контроллера -> файл .cshtml с именем текущего метода контроллера. Это поведение по умолчанию, которое можно изменить и даже явно посылать путь к нужному View из метода контроллера.
 
 > ASP.NET MVC invokes different controller classes (and different action methods within  them) depending on the incoming URL. 
 > The default URL routing logic used by ASP.NET  MVC uses a format like this to determine what code to invoke:
