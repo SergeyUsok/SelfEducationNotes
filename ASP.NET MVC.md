@@ -63,13 +63,13 @@ public ActionResult Index()
         </footer>
     </div>
 ```
-Папка Views содержит файл \_ViewStart.cshtml, который опредеялет layout для всех View, использующихся в проекте. Он содержит ссылку на shared layout view, поэтому нет смысла подключать shared layout view к специфическому view, поскольку оно возьмет layout из этого общего view:
+Папка Views содержит файл \_ViewStart.cshtml, который устанавливает layout для всех View, использующихся в проекте. Он содержит ссылку на shared layout view, поэтому нет смысла подключать shared layout view к специфическому view, поскольку оно возьмет layout из этого общего view:
 ```html
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 ```
-Однако это можно переопределить с специфическом view или вообще убрать и layout'a не будет.
+Код \_ViewStart.cshtml выполняется **до** кода любого View в проекте, т.о. он устанавливет layout для каждого view. Однако layout можно переопределить в специфическом view или вообще убрать и layout'a не будет.
 
 **ViewBag** - это свойство класса ControllerBase. Это dynamic object, в который можно добавлять любые свойства. Он используется для передачи данных из контроллера во view:
 ```csharp
