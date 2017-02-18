@@ -7,30 +7,34 @@
 - **Controllers**: Classes that handle incoming browser requests,  retrieve model data, and then specify view templates that return a response  to the browser.
 
 ### Notes:
-1. При создании констроллера создаем класс MyController, который должен содеражть префикс Controller и наследоваться от класса Controller.
-2. При этом автоматически создается папка My (без префикса Controller) в папке Views. Там хранятся .cshtml файлы, то есть шаблоны для генерации
-HTML контента под конкретный контроллер.
-3. Имя контроллера служит часть URL адреса страницы, то есть MyController будет по адресу http://localhost:port/**My**
-4. Дефолтное отображение контроллера подгружается через публичный метод Index() определенный в контроллере
+- При создании констроллера создаем класс MyController, который должен содеражть префикс Controller и наследоваться от класса Controller.
+- При этом автоматически создается папка My (без префикса Controller) в папке Views. Там хранятся .cshtml файлы, то есть шаблоны для генерации HTML контента под конкретный контроллер.
+- Имя контроллера служит часть URL адреса страницы, то есть MyController будет по адресу http://localhost:port/**My**
+- Дефолтное отображение контроллера подгружается через публичный метод Index() определенный в контроллере
 ```csharp
 public string Index()
 {
     return "This is my <b>default</b> action...";
 }
 ```
-5. В контроллере можно задавать другие public методы, которые будут отображаться как часть URL, то есть если определить метод Welcome,
+
+- В контроллере можно задавать другие public методы, которые будут отображаться как часть URL, то есть если определить метод Welcome,
 то его адрес будет http://localhost:port/**My/Welcome**:
+
 ```csharp
 public string Welcome(string name, string surname)
 {
     return HttpUtility.HtmlEncode("Hello " + name + ", surname: " + surname);
 }
 ```
-6. Параметры следуют за знаком **?** и разделяются знаком **&**. Такой механизм называется **query strings**, пример:
+
+- Параметры следуют за знаком **?** и разделяются знаком **&**. Такой механизм называется **query strings**, пример:
 http://localhost:port/My/Welcome**?name=John&surname=Doe**
-7. Кроме того, параметры можно посылать как часть URL адреса, но для этого нужно настроить Routes. То есть пример выше может выглядеть так:
+- Кроме того, параметры можно посылать как часть URL адреса, но для этого нужно настроить Routes. То есть пример выше может выглядеть так:
 http://localhost:port/My/Welcome**/John/Doe**
-8. View подгружаеются из папки Views -> подпапка с именем контроллера -> файл .cshtml с именем текущего метода контроллера. Это поведение по умолчанию, которое можно изменить и даже явно посылать путь к нужному View из метода контроллера.
+- View подгружаются из папки Views -> подпапка с именем контроллера -> файл .cshtml с именем текущего метода контроллера. Это поведение по умолчанию, которое можно изменить и даже явно посылать путь к нужному View из метода контроллера.
+- Объект **HttpContext** содержит ифно о браузере пользователя, url, ip-адресе и т.п. Доступ к немк можно получить через одноименное свойство HttpContext базового класса контроллера. Кроме того, в него можно напрямую записывать ответ в свойство Response, хотя это и не желательно делать. Также через этот объект можно работать с **cookies** через свойство **HttpContext.Request.Cookies**
+- Базовый контроллер также содержит объект **Session**, с которым можно работать через одноименное свойство.
 
 > ASP.NET MVC invokes different controller classes (and different action methods within  them) depending on the incoming URL. 
 > The default URL routing logic used by ASP.NET  MVC uses a format like this to determine what code to invoke:
