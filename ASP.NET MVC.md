@@ -113,7 +113,7 @@ public ActionResult Welcome(string name, int numTimes = 1)
 ```
 В итоге при переходе на сраницу SpecificView title будет **My Title - My App**
 
-### Strongly Typed Model in View
+#### Strongly Typed Model in View
 Во View можно послать строго типизированную модель вместо использования ViewBag. Это даст возможность compile-time checks и включить  IntelliSense. Для этого в контроллере посылаем параметр во View:
 ```csharp
 public ActionResult Details(int? id)
@@ -155,6 +155,18 @@ public ActionResult Details(int? id)
     @Html.ActionLink("Back to List", "Index")
 </p>
 ```
+#### Partial Views
+Кроме обычных View, Controller Action может также возвращать **Partial View**. Их можно встраивать в обычне View. Это удобно, например, при показе результатов AJAX-запроса.
+
+За рендеринг частичных представлений отвечает объект PartialViewResult, который возвращается методом PartialView.
+В самом .cshtml файле Partial View можно рендерить с помощью двух вспомогательных методов:
+- @Html.Partial("Имя\_Partial\_View")
+- @{Html.RenderPartial("Имя\_Partial\_View");}
+
+Отличие между ними в том, что второй надо вызывать в блоке кода, то есть обрамялть в {}. Кроме того, второй способ пишет напрямую в выходной поток, что может улучшитть производительность. 
+
+Partial View также поддерживают строго типизированные модели.
+
 ### Data Annotations
 Набор аттрибутов, как правило, применямый к моделям для определения различных метаданных и описания поведения членов модели в различных условиях. Пространство имен https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.aspx.
 
