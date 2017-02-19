@@ -27,7 +27,6 @@ public string Welcome(string name, string surname)
     return HttpUtility.HtmlEncode("Hello " + name + ", surname: " + surname);
 }
 ```
-
 - Параметры следуют за знаком **?** и разделяются знаком **&**. Такой механизм называется **query strings**, пример:
 http://localhost:port/My/Welcome**?name=John&surname=Doe**
 - Кроме того, параметры можно посылать как часть URL адреса, но для этого нужно настроить Routes. То есть пример выше может выглядеть так:
@@ -55,6 +54,9 @@ routes.MapRoute( name: "Default2", url: "Store/Buy", defaults: new { controller 
 routes.MapRoute(name: "Default", url: "{controller}/{action}/{id}/{*catchall}",defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional});
 ```
 Обрабатывать все лишние сегменты URL должен разработчик в action'е контроллера. Получить их можно из объекта **RouteData**.
+
+На роуты можно ставить ограничения **(constraint)**. Например, если поставить ограничение на контроллер, то контроллер вызовется, только если он не подпадает под ограничение. Ограничения погут быть RegEx, HttpMethod и т.д. Можно создавать свои ограничения. Подробнее здесь:
+https://metanit.com/sharp/mvc5/6.3.php
 
 ### Razor
 Подходы описанные выше возвращают напрямую HTML-строку, что нарушает принцип MVC и смешивает представление и контроллер, кроме того так тяжело менеджить View. Для этих целей создан движок **Razor**.
