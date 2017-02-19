@@ -33,14 +33,28 @@ http://localhost:port/My/Welcome**?name=John&surname=Doe**
 - Кроме того, параметры можно посылать как часть URL адреса, но для этого нужно настроить Routes. То есть пример выше может выглядеть так:
 http://localhost:port/My/Welcome**/John/Doe**
 - View подгружаются из папки Views -> подпапка с именем контроллера -> файл .cshtml с именем текущего метода контроллера. Это поведение по умолчанию, которое можно изменить и даже явно посылать путь к нужному View из метода контроллера.
-- Объект **HttpContext** содержит ифно о браузере пользователя, url, ip-адресе и т.п. Доступ к немк можно получить через одноименное свойство HttpContext базового класса контроллера. Кроме того, в него можно напрямую записывать ответ в свойство Response, хотя это и не желательно делать. Также через этот объект можно работать с **cookies** через свойство **HttpContext.Request.Cookies**
+- Объект **HttpContext** содержит инфо о браузере пользователя, url, ip-адресе и т.п. Доступ к немк можно получить через одноименное свойство HttpContext базового класса контроллера. Кроме того, в него можно напрямую записывать ответ в свойство Response, хотя это и не желательно делать. Также через этот объект можно работать с **cookies** через свойство **HttpContext.Request.Cookies**
 - Базовый контроллер также содержит объект **Session**, с которым можно работать через одноименное свойство.
+
+### Routing
 
 > ASP.NET MVC invokes different controller classes (and different action methods within  them) depending on the incoming URL. 
 > The default URL routing logic used by ASP.NET  MVC uses a format like this to determine what code to invoke:
 > **/[Controller]/[ActionName]/[Parameters]**
 
 **You set the format for routing in the App_Start/RouteConfig.cs  file.**
+Порядок задания роутов **важен**. Поэтому более специфические роуты надо задавать перед более общими. 
+Можно использовать псевдонимы для контроллера и его метода:
+```csharp
+routes.MapRoute( name: "Default2", url: "Store/Buy", defaults: new { controller = "Home", action="Index" } );
+```
+Здесь для контроллера HomeController используется псевдоним _Store_, а для действия Index - псевдоним _Buy_. В итоге данный маршрут будет сопоставляться с таким запросом, как _Store/Buy_.
+
+Также, можно обозначить любое количество сегментов в запросе, чтобы не быть жестко привязанным к числу сегментов с помощью параметра **{\*catchall}**:
+```csharp
+routes.MapRoute(name: "Default", url: "{controller}/{action}/{id}/{*catchall}",defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional});
+```
+Обрабатывать все лишние сегменты URL должен разработчик в action'е контроллера. Получить их можно из объекта **RouteData**.
 
 ### Razor
 Подходы описанные выше возвращают напрямую HTML-строку, что нарушает принцип MVC и смешивает представление и контроллер, кроме того так тяжело менеджить View. Для этих целей создан движок **Razor**.
