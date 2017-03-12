@@ -481,9 +481,15 @@ public class Entity
 
 Кроме того, существует набор событий, которые вызываются на протяжении обработки запроса (*BeginRequest*, *MapRequestHandler*, *AquireRequestState* и т.д.). На эти события можно пописаться в наследнике **HttpApplication**.
 
-В приложении существуют модули, который реализуют интерфейс **IHttpModule**. Их инициализация происходит после создания объекта приложения. С помощью модулей мможно управлять обработкой запроса в приложении. Кроме того, есть возможность определять собственные модули. Пример https://metanit.com/sharp/mvc5/19.3.php
+В приложении существуют модули, которые реализуют интерфейс **IHttpModule**. Их инициализация происходит после создания объекта приложения. С помощью модулей можно управлять обработкой запроса в приложении с помощью подписки на события, возникающие на протяжении всей обработки запроса. Кроме того, есть возможность определять собственные модули. Пример https://metanit.com/sharp/mvc5/19.3.php
 
+Объект интерфейса **IHttpHandler** отвечает за вызов *ConrollersFactory*, которая возвращает нужный контроллер. Однако, можно определить собственный *HttpHandler*, который будет вызываться для определенного маршрута и реализовывать своб логику без обращения к *ConrollersFactory*.
 
+Общий pipeline запроса выглядит примерно так:
+Global.asax (Application_Start) -> Routing(HttpModules) -> HttpHandler -> 
+ControllersFactory -> Controller -> ActionInvoker -> Action -> ViewEngine -> View
+
+Схемы из интернета: http://saulius.sunauskas.com/2013/10/14/understanding-asp-net-mvc-request-processing-pipeline-visually/
 
 ### Security Notes
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
