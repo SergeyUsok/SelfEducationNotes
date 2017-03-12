@@ -475,6 +475,16 @@ public class Entity
 2. TPT (table-per-type) - имитация наследования в БД, когда есть общая таблица Person с общими колонками, и 2 таблицы Student и Teacher c foreign key на таблицу Person. Данный подход может просадить производительность ввиду наличия join'ов, так как в коде будет идти работа с конкретным типом, а не абстрактным базовым, а значит поля из общей таблицы всегда будут нужны.
 3. TPC (еable-per-сoncrete Class) - таблицы создаются только для конкретных типов и они содержат, в том числе, общие свойства. Это приводит к некоторой повторяемсоти колонок в разных таблицах, но для БД это не страшно. В данном примере будут только 2 таблицы Student и Teacher. 
 
-### Security Note: 
+### ASP.NET MVC Application Life Cycle
+Точкой входа приложения является файл **Global.asax**. В нем определен класс-наследник *HttpApplication*, который содержит метод *Application_Start()*, в котором регистрируются маршруты, фильтры, бандлы, которые будут использоваться в приложении в дальнейшем.
+Объект **HttpApplication** создается **дважды** - один раз при запуске самго приложения, именно здесь вызывается *Application_Start()*, а второй раз во время кождого запроса и здесь уже *Application_Start()* **не вызывается**.
+
+Кроме того, существует набор событий, которые вызываются на протяжении обработки запроса (*BeginRequest*, *MapRequestHandler*, *AquireRequestState* и т.д.). На эти события можно пописаться в наследнике **HttpApplication**.
+
+В приложении существуют модули, который реализуют интерфейс **IHttpModule**. Их инициализация происходит после создания объекта приложения. С помощью модулей мможно управлять обработкой запроса в приложении. Кроме того, есть возможность определять собственные модули. Пример https://metanit.com/sharp/mvc5/19.3.php
+
+
+
+### Security Notes
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
 For more information see [How to: Protect Against Script Exploits in a Web Application by Applying HTML Encoding to Strings] (msdn.microsoft.com/en-us/library/a2a4yykt(v=vs.100).aspx)
