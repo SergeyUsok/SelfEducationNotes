@@ -486,10 +486,15 @@ public class Entity
 Объект интерфейса **IHttpHandler** отвечает за вызов *ConrollersFactory*, которая возвращает нужный контроллер. Однако, можно определить собственный *HttpHandler*, который будет вызываться для определенного маршрута и реализовывать своб логику без обращения к *ConrollersFactory*.
 
 Общий pipeline запроса выглядит примерно так:
+
 Global.asax (Application_Start) -> Routing(HttpModules) -> HttpHandler -> 
 ControllersFactory -> Controller -> ActionInvoker -> Action -> ViewEngine -> View
 
-Схемы из интернета: http://saulius.sunauskas.com/2013/10/14/understanding-asp-net-mvc-request-processing-pipeline-visually/
+Пример из интернета:
+
+![Image of ASP.NET MVC Pipeline](http://www.dotnettricks.com/img/mvc/ASP.NETMVC5Pipeline.png)
+
+Еще примеры: http://saulius.sunauskas.com/2013/10/14/understanding-asp-net-mvc-request-processing-pipeline-visually/
 
 ### Security Notes
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
