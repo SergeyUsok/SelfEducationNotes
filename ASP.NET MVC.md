@@ -1,7 +1,5 @@
-**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
-
-- [MVC stands for model-view-controller.](#)
-- [Notes:](#)
+- [MVC stands for model-view-controller](#MVC stands for model-view-controller)
+- [Notes](#Notes)
 - [Routing](#)
 - [Razor](#)
 	- [Strongly Typed Model in View](#)
@@ -22,7 +20,7 @@
 - [Web API](#)
 - [SignalR](#)
 
-### MVC stands for model-view-controller.  
+### MVC stands for model-view-controller
  
  MVC is a pattern for developing applications that are well architected, testable  and easy to maintain. MVC-based applications contain:
 
@@ -30,7 +28,7 @@
 - **Views**: Template files that your application uses to dynamically  generate HTML responses.
 - **Controllers**: Classes that handle incoming browser requests,  retrieve model data, and then specify view templates that return a response  to the browser.
 
-### Notes:
+### Notes
 - При создании констроллера создаем класс MyController, который должен содеражть префикс Controller и наследоваться от класса Controller.
 - При этом автоматически создается папка My (без префикса Controller) в папке Views. Там хранятся .cshtml файлы, то есть шаблоны для генерации HTML контента под конкретный контроллер.
 - Имя контроллера служит часть URL адреса страницы, то есть MyController будет по адресу http://localhost:port/**My**
