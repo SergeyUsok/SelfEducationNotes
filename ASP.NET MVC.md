@@ -499,3 +499,41 @@ ControllersFactory -> Controller -> ActionInvoker -> Action -> ViewEngine -> Vie
 ### Security Notes
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
 For more information see [How to: Protect Against Script Exploits in a Web Application by Applying HTML Encoding to Strings] (msdn.microsoft.com/en-us/library/a2a4yykt(v=vs.100).aspx)
+
+### Web API
+Технология Web API позволяет создавать REST сервисы. Платформа Web API 2 не является частью фреймворка ASP.NET MVC и может быть задействована как в связке с MVC, так и в соединении с Web Forms. 
+
+Основным классом платформы является **ApiController**, который никак не связан с классом **Controller** из ASP.NET MVC. При создании проекта Web API Visual Studio создает **ValuesController**, который является наследником **ApiController**. 
+
+Есть 2 способа для того, чтобы методы в **ValuesController** соответствовали методам протокола HTTP:
+
+1. Имена методов по умолчанию должны начинаться с имени предназначенного для них метода HTTP (Get, Post, Put, Delete)
+2. Применить к методам контроллера атрибут для того, чтобы показать какому методу HTTP соответствует данный метод.
+
+```csharp
+public class ValuesController : ApiController
+{
+    public IEnumerable<string> GetAllItems()
+    {
+        return new string[] { "value1", "value2" };
+    }
+ 
+    public string GetItem(int id)
+    {
+        return "value";
+    }
+ 
+    [HttpPost]
+    public void CreateItem([FromBody]string value)
+    {}
+ 
+    [HttpPut]
+    public void EditItem(int id, [FromBody]string value)
+    {}
+ 
+    [HttpDelete]
+    public void RemoveItem(int id)
+    {}
+}
+```
+
