@@ -1,11 +1,13 @@
+### Table of Contents
+
 - [MVC stands for model-view-controller](#mvc%20stands%20for%20model-view-controller)
 - [Notes](#notes)
 - [Routing](#routing)
 - [Razor](#razor)
 	- [Strongly Typed Model in View](#strongly%20typed%20model%20in%20view)
-	- [Partial Views](#partial views)
-	- [Html Helpers](#html helpers)
-- [Data Annotations](#data annotations)
+	- [Partial Views](#partial%20views)
+	- [Html Helpers](#html%20helpers)
+- [Data Annotations](#data%20annotations)
 - [HTTP method attributes, BindAttribute (IModelBinder), ValidateAntiForgeryToken](#http%20method%20attributes,%20bindattribute%20(imodelbinder),%20validateantiforgerytoken)
 - [Filters](#filters)
 - [Code First Approach](#code%20first%20approach)
