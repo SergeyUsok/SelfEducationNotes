@@ -1,3 +1,27 @@
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [MVC stands for model-view-controller.](#)
+- [Notes:](#)
+- [Routing](#)
+- [Razor](#)
+	- [Strongly Typed Model in View](#)
+	- [Partial Views](#)
+	- [Html Helpers](#)
+- [Data Annotations](#)
+- [HTTP method attributes, BindAttribute (IModelBinder), ValidateAntiForgeryToken](#)
+- [Filters](#)
+- [Code First Approach](#)
+- [OWIN](#)
+- [Авторизация и аутентификация](#)
+- [Entity Framework notes](#)
+	- [Entity Framework handling concurrency](#)
+		- [Detecting Concurrency Conflicts](#)
+	- [Entity Framework handling inheritance](#)
+- [ASP.NET MVC Application Life Cycle](#)
+- [Security Notes](#)
+- [Web API](#)
+- [SignalR](#)
+
 ### MVC stands for model-view-controller.  
  
  MVC is a pattern for developing applications that are well architected, testable  and easy to maintain. MVC-based applications contain:
