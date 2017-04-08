@@ -20,6 +20,7 @@
 - [ASP.NET MVC Application Life Cycle](#aspnet-mvc-application-life-cycle)
 - [Security Notes](#security-notes)
 	- [XSRF/CSRF attacks](#xsrfcsrf-attacks)
+	- [Open Redirection attacks](#open-redirection-attacks)
 - [Web API](#web-api)
 - [SignalR](#signalr)
 
@@ -541,6 +542,17 @@ XSRF/CSRF (Cross-site request forgery) - атака, которая привод
 1. Во View используется helper **Html.AntiForgeryToken()**, который генерирует hidden form element с токеном
 2. В Контроллере к action использующему Token применяется атрибут **ValidateAntiForgeryToken** для валидации токена.
 3. **AntiForgeryAdditionalDataProvider** позволяет разработчикам расширить стандартный механизм anti-XSRF системы
+
+#### Open Redirection attacks
+Атаки Open Redirection основываются на подмене адреса перенаправления пользователя на вредоносную страницу, которая внешне копирует оригинал. Алгоритм атаки:
+
+1. Как правило, сайт после успешного log on'a перенаправляет пользователя на главную или какую-либо еще свою страницу.
+2. Адрес перенаправления может быть указан в URL: http://site.com/Account/LogOn?**returnUrl=http://site.com/Home**
+3. Используя фишинг злоумышленник подменяет в своем письме пользователю returnUrl, например, на http://sit**a**.com/Account/LogOn, то есть не на оригинальный сайт, а на подделку, которая выглядит как оригинал
+4. Подделка сообщает пользователю, что login не удался и нужно ввести данные еще раз
+5. Пользователь вводит логин и пароль и его данные теперь доступны злоумышленнику.
+
+Для того, чтобы уберечься от этих атак достаточно проверять происходит ли redirect на локальный адрес (то есть тот же домен) или нет. Если нет, но редиректить куда-нибудь по умолчанию. В ASP.NET MVC начиная с версии 3 проверка **Url.IsLocalUrl(returnUrl)** присутствует сгенерированных Account контроллерах. В версиях MVC 1 и MVC 2 этой проверки нет.
 
 ### Web API
 Технология Web API позволяет создавать REST сервисы. Платформа Web API 2 не является частью фреймворка ASP.NET MVC и может быть задействована как в связке с MVC, так и в соединении с Web Forms. 
