@@ -19,7 +19,7 @@
 	- [Entity Framework handling inheritance](#entity-framework-handling-inheritance)
 - [ASP.NET MVC Application Life Cycle](#aspnet-mvc-application-life-cycle)
 - [Security Notes](#security-notes)
-	- [XSRF/CSRF attacks](#xsrf-csrf-attacks)
+	- [XSRF/CSRF attacks](#xsrf/csrf-attacks)
 - [Web API](#web-api)
 - [SignalR](#signalr)
 
