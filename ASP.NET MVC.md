@@ -19,6 +19,7 @@
 	- [Entity Framework handling inheritance](#entity-framework-handling-inheritance)
 - [ASP.NET MVC Application Life Cycle](#aspnet-mvc-application-life-cycle)
 - [Security Notes](#security-notes)
+        - [XSRF/CSRF attacks](#xsrf-csrf-attacks)
 - [Web API](#web-api)
 - [SignalR](#signalr)
 
@@ -523,6 +524,23 @@ ControllersFactory -> Controller -> ActionInvoker -> Action -> ViewEngine -> Vie
 ### Security Notes
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
 For more information see [How to: Protect Against Script Exploits in a Web Application by Applying HTML Encoding to Strings] (msdn.microsoft.com/en-us/library/a2a4yykt(v=vs.100).aspx)
+
+#### XSRF/CSRF attacks
+XSRF/CSRF (Cross-site request forgery) - атака, которая приводит к тому, что хакер может выполнить на неподготовленном сайте массу различных действий от имени других, зарегистрированных посетителей. Алгоритм атаки следующий:
+
+1. Пользователь логиниться на сайт _some-site.com_
+2. После удачного логина у пользователя сохранена сессия в куках
+3. После работы на первом сайте пользователь заходит на второй "злой" сайт
+4. На злом сайте JavaScript отрабатывает скрытую форму и посылет запрос на _some-site.com_ используя сохраненные куки пользователя
+5. _some-site.com_ валидирует запрос и выполняет его. Т.о, если _some-site.com_, например, является сайтом для работы с банковски аккаунтом, "злой" сайт может перевести часть денег с пользовательского счета на свой счет с помощью кук пользователя.
+
+Для того, чтобы предотвратить эту атаку сервер дополнительно генерирует **токен**, который проверяется вместе с куками и только при правильном токене и куках авторизации сервер позволит выполнить нужную операцию пользователю. Токе генерируется новый под каждую сесссию, не хранится в куках и "злой" сайт не сможет его узнать и подделать.
+
+В ASP.NET MVC для генерации токена используются следующие механизмы:
+
+1. Во View используется helper **Html.AntiForgeryToken()**, который генерирует hidden form element с токеном
+2. В Контроллере к action использующему Token применяется атрибут **ValidateAntiForgeryToken** для валидации токена.
+3. **AntiForgeryAdditionalDataProvider** позволяет разработчикам расширить стандартный механизм anti-XSRF системы
 
 ### Web API
 Технология Web API позволяет создавать REST сервисы. Платформа Web API 2 не является частью фреймворка ASP.NET MVC и может быть задействована как в связке с MVC, так и в соединении с Web Forms. 
