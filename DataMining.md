@@ -114,7 +114,7 @@ _**5. Adjusted Cosine Similarity**_
 
 Формула вляется **Item-based** collaborative filtering recommendation algorithm. Алгоритм учитывает инфляцию пользовательских оценок.
 
-![](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/DataMining/AdjustedCosine.png)
+![](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/DataMining/AdjustedCosine.PNG)
 
 **ВЫВОД**
 
