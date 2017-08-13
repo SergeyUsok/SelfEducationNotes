@@ -108,7 +108,13 @@ Projected rating = (4.5 x 0.25) + (5 x 0.35) + (3.5 x 0.4)  = 4.27.
 
 - если вх. данные имеют много пустых ячеек, то лучше Cosine Similarity
 
-- если данные подвержены инфляции (grade-inflation), то лучше Pearson Correlation Coefficient. Инфляция это года Sam ставит оценки от 1 до 5, а Ben только 4 и 5, то есть 4 Бена может быть равна 2 или 3 Сэма. Чтобы это учесть лучше использовать PearsonCorrelation.
+- если данные подвержены инфляции (grade-inflation), то лучше Pearson Correlation Coefficient. Инфляция это когда Sam ставит оценки от 1 до 5, а Ben только 4 и 5, то есть 4 Бена может быть равна 2 или 3 Сэма. Чтобы это учесть лучше использовать Pearson Correlation.
+
+_**5. Adjusted Cosine Similarity**_
+
+Формула вляется **Item-based** collaborative filtering recommendation algorithm. Алгоритм учитывает инфляцию пользовательских оценок.
+
+![](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/DataMining/AdjustedCosine.png)
 
 **ВЫВОД**
 
