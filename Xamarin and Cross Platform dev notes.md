@@ -47,7 +47,7 @@ Application project - здесь, проект для конкретной пл�
 - Объяснение опций переиспользования кода с официального сайта: [https://developer.xamarin.com/guides/cross-platform/application_fundamentals/code-sharing/]
 
 ### Approaches of Android game dev
-- Canvas (All logic written by dev)
+- Canvas (All drawing logic written by dev)
 - WebView
     - Hybrid App (allows calls from JS to C#)
     - All logic written on JS
@@ -55,5 +55,5 @@ Application project - здесь, проект для конкретной пл�
     - CocosSharp
     - UrhoSharp
 - Native UI Controls
-    - Predefined controls
+    - Predefined SDK controls
     - Custom Views
