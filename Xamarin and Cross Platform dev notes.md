@@ -45,3 +45,15 @@ Application project - здесь, проект для конкретной пл�
 
 - Объясненение разницы между Shared и PCL с примерами приложений и их deployment'a в магазины: [https://jj09.net/getting-started-with-xamarin-in-2016/]
 - Объяснение опций переиспользования кода с официального сайта: [https://developer.xamarin.com/guides/cross-platform/application_fundamentals/code-sharing/]
+
+### Approaches of Android game dev
+- Canvas (All logic written by dev)
+- WebView
+    - Hybrid App (allows calls from JS to C#)
+    - All logic written on JS
+- Game Egnine
+    - CocosSharp
+    - UrhoSharp
+- Native UI Controls
+    - Predefined controls
+    - Custom Views
