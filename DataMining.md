@@ -155,6 +155,7 @@ _**5. Adjusted Cosine Similarity**_
 #### Normalization
 
 Допустим, есть необходимость добавить характеристику "удары в минуту" (beats per minute). Тогда начальная таблица будет выглядеть так:
+
 |   | Piano | Vocal | Backup Vocal | Guitar riffs | BPM |
 | --- | --- | --- | --- | --- | --- |
 | Dr. Dog/Fate | 2.5 | 4  | 4  | 5 | 140 |
