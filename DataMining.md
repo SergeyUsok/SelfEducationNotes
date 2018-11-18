@@ -184,11 +184,11 @@ _**2. The Standard Score (aka z-score)**_
 
 Standard Score показывает насколько велико отклонение (deviation) у конкретного значения (value) от среднего (mean).
 
-рисунок с формулой.
+![](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/DataMining/Standard_Score.png)
 
 **Standard Deviation** считается по формуле:
  
- рисунок с формулой.
+![](https://github.com/SergeyUsok/SelfEducationNotes/blob/master/img/DataMining/Standard_Deviation.png)
  
  card(x) - это мощность x, то есть количество значений x вообще.
  
