@@ -525,7 +525,7 @@ ControllersFactory -> Controller -> ActionInvoker -> Action -> ViewEngine -> Vie
 
 ### Security Notes
 **HttpServerUtility.HtmlEncode**  is being used to protect the application from malicious input (namely JavaScript).
-For more information see [How to: Protect Against Script Exploits in a Web Application by Applying HTML Encoding to Strings] (msdn.microsoft.com/en-us/library/a2a4yykt(v=vs.100).aspx)
+For more information see https://msdn.microsoft.com/en-us/library/a2a4yykt(v=vs.100).aspx (How to: Protect Against Script Exploits in a Web Application by Applying HTML Encoding to Strings)
 
 #### XSRF/CSRF attacks
 XSRF/CSRF (Cross-site request forgery) - атака, которая приводит к тому, что хакер может выполнить на неподготовленном сайте массу различных действий от имени других, зарегистрированных посетителей. Алгоритм атаки следующий:
