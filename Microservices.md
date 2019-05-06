@@ -79,5 +79,53 @@ _Compile and fast tests_ -> _Slow tests_ -> _UAT_ -> _Performance tests_ -> _Pro
 
 3. **Continuous delivery (CD)** построено на концепции **Build pipeline** и является подходом, при котором мы получаем постоянный feedback о готовности к production release для каждого коммита и трактуем каждый коммит как release-кандидат.
 
-4. 
+4. Варианты хостинга сервисов
+	- Multiple services per host
+	- Application container with multiple services inside per single host
+	- Single service per host
+	- PaaS
 
+5. **Автоматизация** - ключ к простоте управления (handling) множеством сервисов. Перед переходом с монолита на микросервисы прежде всего необходимо автоматизировать процессы сборки, развертывания и мониторинга, а после уже рефакторить и переделывать систему.
+
+9. В части **From Physical to Virtual** (примерно стр. 217) говорится о **контейнеризации** и **виртуализации**, упоминаются несколько полезных инструментов, в том числе и Docker.
+
+10. **SUMMARY**
+	- Focus on maintaining the ability to release one service independently from another, and make sure that whatever technology you select supports this.
+	- Author suggests to have a single repository per microservice and one CI build per microservice for deploying them separately.
+	- Have single-service-per-host/container (use Docker or LXC to make managing the moving parts cheaper and easier)
+	- Automate everything, if choosen technology does not allow automation, choose another technology, because **automation is a KEY to easy manageability**
+	- Going deeper into this topic read the book by Jez Humble and David Farley "Continuous Delivery" 
+
+### Тестирование микросервисов
+
+1. Brian Marick's testing quadrant:
+
+![Brian Marick's testing quadrant](https://lisacrispin.com/wp-content/uploads/2011/11/Agile-Testing-Quadrants.png)
+
+2. Mike Cohn's test pyramid
+
+![Mike Cohn's test pyramid](https://martinfowler.com/articles/practical-test-pyramid/testPyramid.png)
+
+3. **Unit tests** - это **small-scoped** тесты и их главная цель дать **быстрый** _feedback_ о том насколько хорошо написанная функциональность работает.
+
+4. **Service tests** - тестируют возможности и функциональность отдельного сервиса. Можно сказать, это **middle-scoped** тесты, они могут быть быстрыми как unit, так и долго выыполняющимися при, например, интеграции с реальной базой или другими сервисами.
+
+5. **End-to-end tests (UI in Mike Cohn's test pyramid)** - тесты для всей системы в целом. Это **large-scoped** тесты. Когда они успешно выполняются можно быть более-менее уверенным, что система работает (при условии, что тесты написаны корректно).
+
+6. Чем больше **testing scope** тем медленней тесты работают и долшье ждать feedback. Однако чем более изолированней тесты (меньше scope) тем меньше информации о том как система себя поведет в целом.
+
+7. Следуя принципу **Fail fast** в build pipeline необходимо настраивать тестовый прогон в порядке увеличения **testing scope**, т.е. сначала unit, потом service, а потом end-to-end тесты.
+
+8. Есть несколько проблем с **large-scoped** тестами:
+	- В случае с интеграционными тестами (service tests) или end-to-end тестами, какие версии других сервисов (от которых зависит наш тестируемый) брать для тестирования? Продакшн версии или последнии из UAT?
+	- При наличии в активной разработке нескольких сервисов, как ранить end-to-end тесты и трактовать их результаты, если несколько сервисов были изменены?
+
+Эти проблемы можно решить наличием нескольких веток build pipeline'ов с unit и service тестами, которые при положительном результате каждой ветки объединиются и ранять общие для всех end-to-end tests.
+
+Еще одной проблемой end-to-end тестов в случае, когда есть несколько команд и каждая отвечает за свой сервис, является то, что не очевидно, кто должен реагировать, если они упали. Решением может быть дежурства каждой команды, по-спринтово, например.
+
+9. **Test Journeys, Not Stories**. Это значит, что не надо добавлять на каждую user-story по end-to-end тесту, поскольку они обычно долго ранятся и управлять ими и их зависимостями сложно, то в end-to-end лучше добавлять тесты, которые проверяют **core** логику системы, а user-story лучше проверять в service тестах в изоляции. **Core логика** - это например, flow заказа в онлайн магазине, начиная от UI и заканчивая доставкой и оплатой и все это один end-to-end тест, который должен работать всегда, независимо от изменений в сервисах.
+
+10. **Consumer-driven contract (CDC)** - это концепция тестирования сервиса с точки зрения _потребителя_ этого сервиса. На пирамиде Mike Cohn'a эти тесты находятся рядом с service тестами, така тестируют конкретный сервис. Преимущество данных тестов перед обычными интеграционными в том, что они тестируют конкретный реальный сценарий. Кроме того, они могут тестировать **разную** функциональность одного и того же сервиса, но с точки зрения **разных** потребителей. Например, у нас есть _Customer_ сервис, отвечающий за клиентов. У данного сервиса 2 потребителя: _Customer helpdesk_ service и _Delivery_ service. Оба сервиса имеют свои ожидания (expectations) о том, как _Customer_ сервис должен работать. Соответственно создаются два набора **CDC** тестов для каждого аспекта работы _Customer_ сервиса. Хорошей практикой является создание этих тестов в коллаборации между командами _Customer_ и _Customer helpdesk_ сервисов и _Customer_ и _Delivery_ сервисов. Преимущество данных тестов в том, что в случае проблем с тестом, сразу видно какой _потребитель_ заимпакчен. Pact: [link to Pact!](https://github.com/pact-foundation/pact.io) - инструмент для **CDC** тестов.
+
+11. 
