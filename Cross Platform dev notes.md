@@ -73,5 +73,5 @@ Application project - здесь, проект для конкретной пл�
 6. Love2D is Game framework based on Lua (есть игра на Steam)
     - **Android, iOS, Windows:** https://love2d.org/
 7. Flutter is SDK based on Dart lang developed by Google (это скорее для приложений, а не игр)
-    - **Android, iOS, Windows:** https://github.com/cocos2d/cocos2d-x
+    - **Android, iOS, Windows:** https://flutter.dev/
  
