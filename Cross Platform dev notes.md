@@ -60,8 +60,8 @@ Application project - здесь, проект для конкретной пл�
 
 ### Написание проложений и игр для разных платформ
 1. Чистый JS (HTML, CSS + optionally Phaser or another Game Engine)
-  - **Android:** завернуть web проложение в WebView
-  - **Windows:** завернуть web проложение в exe с помощью NW.js или Electron
+    - **Android:** завернуть web проложение в WebView
+    - **Windows:** завернуть web проложение в exe с помощью NW.js или Electron
 2. Lua script + Corona
     - **Android, iOS, Windows:** https://ru.coronalabs.com/
 3. PhoneGap и/или Cordova
