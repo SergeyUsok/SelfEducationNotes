@@ -57,3 +57,21 @@ Application project - здесь, проект для конкретной пл�
 - Native UI Controls
     - Predefined SDK controls
     - Custom Views
+
+### Написание проложений и игр для разных платформ
+1. Чистый JS (HTML, CSS + optionally Phaser or another Game Engine)
+  - **Android:** завернуть web проложение в WebView
+  - **Windows:** завернуть web проложение в exe с помощью NW.js или Electron
+2. Lua script + Corona
+    - **Android, iOS, Windows:** https://ru.coronalabs.com/
+3. PhoneGap и/или Cordova
+    - **Android, iOS, Windows:** https://www.phonegap.com/about/license/, https://cordova.apache.org/
+4. NativeScript (JS + HTML + CSS)
+    - **Android, iOS:** https://www.nativescript.org/
+5. Cocos2D is Game Engine which has JS port
+    - **Android, iOS, Windows:** https://github.com/cocos2d/cocos2d-x
+6. Love2D is Game framework based on Lua (есть игра на Steam)
+    - **Android, iOS, Windows:** https://love2d.org/
+7. Flutter is SDK based on Dart lang developed by Google (это скорее для приложений, а не игр)
+    - **Android, iOS, Windows:** https://github.com/cocos2d/cocos2d-x
+ 
