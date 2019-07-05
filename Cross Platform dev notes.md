@@ -62,7 +62,7 @@ Application project - здесь, проект для конкретной пл�
 1. Чистый JS (HTML, CSS + optionally Phaser or another Game Engine)
     - **Android:** завернуть web проложение в WebView
     - **Windows:** завернуть web проложение в exe с помощью NW.js или Electron
-2. Lua script + Corona
+2. Corona is 2D Game engine based on Lua
     - **Android, iOS, Windows:** https://ru.coronalabs.com/
 3. PhoneGap и/или Cordova
     - **Android, iOS, Windows:** https://www.phonegap.com/about/license/, https://cordova.apache.org/
