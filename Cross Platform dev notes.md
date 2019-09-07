@@ -74,3 +74,8 @@ Application project - здесь, проект для конкретной пл�
     - **Android, iOS, Windows:** https://love2d.org/
 7. Flutter is SDK based on Dart lang developed by Google (это скорее для приложений, а не игр)
     - **Android, iOS, Windows:** https://flutter.dev/
+
+
+Technology | Language | Android | IOS | Windows | Game
+------------ | -------------
+Vanilla JS + WebView | JavaScript | &#10004; | &#10004; | &#10004; | &#10004;
