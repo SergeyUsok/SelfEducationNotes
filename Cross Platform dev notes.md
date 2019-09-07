@@ -76,6 +76,12 @@ Application project - здесь, проект для конкретной пл�
     - **Android, iOS, Windows:** https://flutter.dev/
 
 
-Technology | Language | Android | IOS | Windows | Game
------------- | -------------
-Vanilla JS + WebView | JavaScript | &#10004; | &#10004; | &#10004; | &#10004;
+Technology | Language | Android | IOS | Windows | Game | App
+------------ | ------------- | ------------ | ------------- | ------------ | ------------- | -------------
+Vanilla JS + WebView | JavaScript | &#10004; | &#10004; | &#10004; | &#10004; | &#10004;
+Corona 2D | Lua | &#10004; | &#10004; | &#10004; | &#10004; | &#10060; 
+Cordova/PhoneGap | JavaScript | &#10004; | &#10004; | &#10004; | &#10004; | &#10004;
+NativeScript | JavaScript | &#10004; | &#10004; | &#10060; | &#10004; | &#10004;
+Cocos 2D | JavaScript | &#10004; | &#10004; | &#10004; | &#10004; | &#10060; 
+Love 2D | Lua | &#10004; | &#10004; | &#10004; | &#10004; | &#10060;
+Flutter | Dart | &#10004; | &#10004; | &#10004; | &#10060; | &#10004;
