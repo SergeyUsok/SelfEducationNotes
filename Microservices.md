@@ -194,4 +194,7 @@ Track the health of all downstream responses, at a bare minimum including theres
 
 ### Security
 
+Монолит сам обрабатыват и содержит логику аутентификации и авторизации. В случае микросервисов такой подход не работает, поскольку мы не хотим чтобы пользователь логинился в каждый микросервис учавствующий в обработке его запроса. **Необходим SSO (Single Sign On)**
 
+SAML (security assertion markup language) - старая реализация SSO.
+OpenID - замена SAML, новая реализация SSO
