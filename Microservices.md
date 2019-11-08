@@ -267,3 +267,23 @@ _Тесно связанные_ организации (фирмы, выпуск
 
 Когда эти 2 условия не совпадают, мы получаем точки напряжения и потенциальных проблем. Признавая связь между ними, мы обеспечим, чтобы система, которую мы пытаемся создать, имела смысл для организации, для которой мы ее создаем.
 
+### Microservices at Scale
+
+#### Service resilency/failure recovery
+
+**Любая система или оборудование может и обязательно однажды выйдет из строя** - данная мысль заставляет по-другому взглянуть на проблему отказов системы. Вместо того, чтобы сосредотачиваться на построении решения, которое "никогда не выходит из строя", что слишком идеально и невозможно, **лучше сосредоточиться на решении, которое позволит быстро и легко восстановить работоспособность системы, то есть всегда быть готовым к отказам**.
+
+Нужно учитывать, что необходимость в проработке путей восстановления после сбоя зависит от природы самого сервиса. Если он используется пару раз в месяц, то и тратить время на него не стоит. По факту, все время ответа, доступность, отказоустойчивость и т.д. являются кросс-функциональными требованиями, упоминавшимися ранее и должны быть согласованы с бизнесом и пользователями.
+
+Cross-functional requirements can vary from service to service, but I would suggest defining some **general cross-functionals** and then overriding them for particular use cases. When it comes to considering if and **how to scale out your system to better handle load or failure**, start by trying to understand the following requirements:
+
+1. _**Response time/latency**_. How long should various operations take? It can be useful here to measure this with different numbers of users to understand how increasing load will impact the response time. Given the nature of networks, you’ll always have outliers, so setting targets for a given percentile of the responses monitored can be useful. The target should also include the number of concurrent connections/users you will expect your software to handle. So you might say, “We expect the website to have a 90th-percentile response time of 2 seconds when handling 200 concurrent connections per second.”
+
+2.  _**Availability**_. Can you expect a service to be down? Is this considered a 24/7 service? Some people like to look at periods of acceptable downtime when measuring availability, but how useful is this to someone calling your service? I should either be able to rely on your service responding or not. Measuring periods of downtime is really more useful from a historical reporting angle.
+
+3. _**Durability of data**_. How much data loss is acceptable? How long should data be kept for? This is highly likely to change on a case-by-case basis. For example, you might choose to keep user session logs for a year or less to save space, but your financial transaction records might need to be kept for many years.
+
+Once you have these requirements in place, you’ll want a way to systematically measure them on an ongoing basis. You may decide to make use of performance tests, for example, to ensure your system meets acceptable performance targets, but you’ll want to make surecyou are monitoring these stats in production as well!
+
+Если есть требование в случае какого-либо fail'a, чтобы UI и лежащие под ним микросервисы были доступны хотя бы частично, необходимо иметь возможность отключить часть функциональности и иметь заглушки для показа пользователю, а все сервисы относящиеся к UI рассматривать с перспективы "что делать и что показывать поьзователю, если данный сервис или те от кого он зависит выйдут из строя?" и собственно знать ответ на этот вопрос.
+
