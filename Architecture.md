@@ -55,3 +55,13 @@ Aggregate Root является шаблоном в DDD. Он представл
 A real-world example of principles and practices
 
 ![A real-world example of principles and practices](https://pbs.twimg.com/media/Dvi9qXoUcAAkAJ3.jpg)
+
+### Evolurionary architect
+
+1. **Vision**. Ensure there is a clearly communicated technical vision for the system that will help your system meet the requirements of your customers and organization
+2. **Empathy**. Understand the impact of your decisions on your customers and colleagues
+3. **Collaboration**. Engage with as many of your peers and colleagues as possible to help define, refine, and execute the vision
+4. **Adaptability**. Make sure that the technical vision changes as your customers or organization requires it
+5. **Autonomy**. Find the right balance between standardizing and enabling autonomy for your teams
+6. **Governance**. Ensure that the system being implemented fits the technical vision
+
