@@ -57,6 +57,7 @@
 - **SynchronizationContext** - это стратегия, которая позволяет маршаллить вызовы между потоками. Стратегия, потому что у каждого "специального" потока, которому нужен **SyncContext**, своя реализация этого класса (WPF, WinForms etc.) Соответственно, если есть неооходимость в создании спецального потока, операции которого должны выполняться только в нем - можно реализовать свой **SyncContext**. Как пример, StaSyncContext для работы с потоком в STA Apartments для работы с COM.
 
 ## TPL, Async and PLINQ
+- **Асинхронность дает отзывчивость на UI (UI поток не блокируется) и масштабируемость на сервере (потоки из пула не ждут окончания операции, а могут обрбатывать новые запросы)**
 - В библиотечных методах лучше не использовать **Task.Run**. Пусть пользователь сам решит, надо ли ему многопоточность. Для имитации асинхронности тоже его не надо использовать, либо **async/await**, либо синхронный код
 - **void** в async методах использовать только для обработчиков событий, поскольку это fire-and-forget, то можно попасть в ситуацию пропущенного исключения или чего-то подобного.
 - При использовании async/await не гарантии, что метод будет выполняться асинхронно, поскольку в целях оптимизации CLR вполне может выполнить его синхронно. **Task.Yield()** позволяет явно сказать, что Continuation должен выполняться в другом потоке, т.е. он **forcibly fork method control flow**
@@ -77,6 +78,25 @@
 | Отмена Child приводит к отмене Parent, TaskCanceledException распространяется в ожидающий Parent задачу поток | **Yes**  | **No**  |
 - **UnobservedTaskException** происходит когда Task с необработанным исключением наичнает собираться **GC**. Таким образом мы можем подписаться на событие **TaskScheduler.UnobservedTaskException** и обработать его в "последний момент" и не валить процессс. Начиная с **.NET 4.5** UnobservedTaskException не валит процесс. Изменение в app.config даст поведение как в **.NET 4.0**
 - Политика планирования задач: существует **GlobalQueue** (FIFO) для всех потоков ThreadPool'a и **LocalQueue**(LIFO) для каждого потока. В Global попадают Parent задачи, а в Local - Attached and Detached Child tasks. Если в Local очереди потока нет задач, они ищутся в Global, а если и там нет, то в Local очереди другого потока. **LongRunning** опция позволяет сказать, что задаче нужен выделенный поток и она точно не попадет в Local queue. 
+- С помощью Task.Delay можно реализовать **асинхронный retry**, а с помощью CancellationTokenSource - **timeout** для асинхронной операции, которая не принимает на вход собственно сам CancellationToken:
+```csharp
+  async Task<string> DownloadStringWithTimeout(HttpClient client, string uri)
+  {
+     using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
+     Task<string> downloadTask = client.GetStringAsync(uri);
+     Task timeoutTask = Task.Delay(Timeout.InfiniteTimeSpan, cts.Token);
+
+     Task completedTask = await Task.WhenAny(downloadTask, timeoutTask);
+     if (completedTask == timeoutTask)
+       return null;
+     return await downloadTask;
+  }
+```
+- **ValueTask\<T\>** может использоваться для тюнинга производительности, поскольку является значимым типом, но имеет ряд ограничений:
+    - A ValueTask or ValueTask\<T\> may only be **awaited once**
+    - ValueTask можно сконвертировать в Task с помощью метода AsTask, но только **один раз на одном экземпляре**
+    - **Нельзя вызвать await и AsTask** на одном и том же экземпляре ValueTask
+    - Synchronously getting results from a ValueTask or ValueTask\<T\> **may only be done once**, after the ValueTask has completed, and that same ValueTask **cannot be awaited or converted to a task**, но так лучше не делать вообще так как **Synchronously retrieving a result from Task\<T\> blocks the calling thread until the task completes; ValueTask\<T\> makes no such guarantees**
 
 ## C# 6.0 features:
 https://github.com/dotnet/roslyn/wiki/New-Language-Features-in-C%23-6
