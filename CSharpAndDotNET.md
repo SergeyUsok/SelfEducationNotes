@@ -98,5 +98,19 @@
     - **Нельзя вызвать await и AsTask** на одном и том же экземпляре ValueTask
     - Synchronously getting results from a ValueTask or ValueTask\<T\> **may only be done once**, after the ValueTask has completed, and that same ValueTask **cannot be awaited or converted to a task**, но так лучше не делать вообще так как **Synchronously retrieving a result from Task\<T\> blocks the calling thread until the task completes; ValueTask\<T\> makes no such guarantees**
 
+## Rx
+- Помимо стандартных методов как в Linq'е, Rx имеет еще такие методы как:
+	- Buffer - буферизирует входящие события
+	- Window - группирует поток событий по N штук в каждой группе, но возвращает не List of List, а IObserveable<IObserveable<T>>, т.е. на каждую группу нужно пописаться отдельно, чтобы получить события 
+	- Throttle - используется для того, чтобы не забить потребителя потоком сообщений. Метод принимает на вход интервал, по истечении которого отдает сообщение потребителю, но только в том случае, если другое сообщение не приходило, иначе интервал сбрасывается снова.
+	- Sample - аналогичен Throttle, но метод не сбрасывает интервал, а просто отдает последний на данный момент элемент, когда интервал проходит, затем заново отсчитвает время.
+	- Timeout - используется, чтобы задать время за которое каждый последующий эелемент должен прийти, иначе выбрасывет исключение.
+- Observable.LastAsync/FirstAsync/ToList() можно **await**'ать, чтобы получить последний/первый/все эелементы асинхронно.
+- Для конвертации Task'и или метода, который возвращает Task, в IObservable можно использовать:
+	- ToObvservable() extension method on Task
+	- Observable.StartAsync() - он поддерживает CancellationToken
+	- Observable.FromAsync() - он поддерживает CancellationToken, но возвращает _*cold*_ IObservable, то есть он начнет работать, только при появлении подписчика, и каждый новый подписчик будет вызывать новый запуск метода переданного в FromAsync.
+
+
 ## C# 6.0 features:
 https://github.com/dotnet/roslyn/wiki/New-Language-Features-in-C%23-6
