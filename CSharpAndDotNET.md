@@ -99,11 +99,11 @@
   async Task<PingReply> PingAsync(string hostNameOrAddress,  CancellationToken cancellationToken)
   {
     using var ping = new Ping();
-  	Task<PingReply> task = ping.SendPingAsync(hostNameOrAddress);
-
-  	// Register callback which cancel Ping request when tokenSource.Cancel() invoked
-  	using CancellationTokenRegistration _ = cancellationToken.Register(() => ping.SendAsyncCancel());	  
-	return await task;
+    Task<PingReply> task = ping.SendPingAsync(hostNameOrAddress);
+    
+    // Register callback which cancel Ping request when tokenSource.Cancel() invoked
+    using CancellationTokenRegistration _ = cancellationToken.Register(() => ping.SendAsyncCancel());	  
+    return await task;
   }
 ```
 - **ValueTask\<T\>** может использоваться для тюнинга производительности, поскольку является значимым типом, но имеет ряд ограничений:
