@@ -96,15 +96,15 @@
       .CreateLinkedTokenSource(cancellationToken)**_. В итоге скомбинированный CancellationToken может раегировать на отмену при разных случаях, в зависимости от того какой из оригинальных токенов (из которых он скомбинирован) был вызван для отмены задачи. **Главное не забывать Dispose'ить комбинированные CancellationTokenSource**.
 - **CancellationToken** имеет метод **Register**, в который можно передать callback для отмены операции. Это полезно для взаимодействия с кодом, который имеет логику отмены, но не основанную на CancellationToken. Т.о., если высокоуровневый код вызовет token.Cancel(), тот в свою очередь вызовет переданный в Register() callback и отменит операцию. Пример с классом Ping, который не поддерживает CancellationToken в своем API:
 ```csharp
-  	async Task<PingReply> PingAsync(string hostNameOrAddress,  CancellationToken cancellationToken)
-	{
-	  using var ping = new Ping();
-	  Task<PingReply> task = ping.SendPingAsync(hostNameOrAddress);
-	  
-	  // Register callback which cancel Ping request when tokenSource.Cancel() invoked
-	  using CancellationTokenRegistration _ = cancellationToken.Register(() => ping.SendAsyncCancel());	  
-	  	return await task;
-	}
+  async Task<PingReply> PingAsync(string hostNameOrAddress,  CancellationToken cancellationToken)
+  {
+    using var ping = new Ping();
+  	Task<PingReply> task = ping.SendPingAsync(hostNameOrAddress);
+
+  	// Register callback which cancel Ping request when tokenSource.Cancel() invoked
+  	using CancellationTokenRegistration _ = cancellationToken.Register(() => ping.SendAsyncCancel());	  
+	return await task;
+  }
 ```
 - **ValueTask\<T\>** может использоваться для тюнинга производительности, поскольку является значимым типом, но имеет ряд ограничений:
     - A ValueTask or ValueTask\<T\> may only be **awaited once**
