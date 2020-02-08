@@ -93,7 +93,7 @@
   }
 ```
 - **CancellationTokenSource** можно линковать с другим **CancellationTokenSource** используя метод _**CancellationTokenSource
-      .CreateLinkedTokenSource(cancellationToken)**_. В итоге скомбинированный CancellationToken может раегировать на отмену при разных случаях, в зависимости от того какой из оригинальных токенов (из которых он скомбинирован) был вызван для отмены задачи.
+      .CreateLinkedTokenSource(cancellationToken)**_. В итоге скомбинированный CancellationToken может раегировать на отмену при разных случаях, в зависимости от того какой из оригинальных токенов (из которых он скомбинирован) был вызван для отмены задачи. **Главное не забывать Dispose'ить комбинированные CancellationTokenSource**.
 - **ValueTask\<T\>** может использоваться для тюнинга производительности, поскольку является значимым типом, но имеет ряд ограничений:
     - A ValueTask or ValueTask\<T\> may only be **awaited once**
     - ValueTask можно сконвертировать в Task с помощью метода AsTask, но только **один раз на одном экземпляре**
