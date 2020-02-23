@@ -37,6 +37,19 @@ https://github.com/donnemartin/system-design-primer
 - Извлеките из модели терминологию, используемую в проекте, и базовое распределение обязанностей. **Код становится выражением модели, поэтому изменение кода может быть изменением модели**. Его эффект должен распространяться на все активности проекта соответственно.
 - **Разработка становится итеративным процессом уточнения модели, дизайна и кода как единая активность**
 
+## Layered (Onion) architecture
+
+Layer | Description
+------------ | -------------
+**User Interface (or Presentation Layer)** | Responsible for showing information to the user and interpreting the user'scommands. The external actor might sometimes be another computers ystem rather than a human user.
+**Application Layer** | Defines the jobs the software is supposed to do and directs the expressivedomain objects to work out problems. The tasks this layer is responsible for are meaningful to the business or necessary for interaction with the application layers of other systems. This layer is kept thin. It does not contain business rules or knowledge, but only coordinates tasks and delegates work to collaborations of domaino bjects in the next layer down. It does not have state reflecting the business situation, but it can have state that reflects the progress of a task for the user or the program.
+**Domain Layer (or Model Layer)** | Responsible for representing concepts of the business, information aboutthe business situation, and business rules. State that reflects the business situation is controlled and used here, even though the technical details of storing it are delegated to the infrastructure. This layer is the heart of business software.
+**Infrastructure Layer** | Provides generic technical capabilities that support the higher layers: message sending for the application, persistence for the domain, drawing widgets for the UI, and so on. The infrastructure layer may also support the pattern of interactions between the four layers through an architectural framework.
+
+The essential principle is that any element of a **layer depends only on other elements in the same layer or on elements of the layers "beneath" it**. Communication upward must pass through some indirect mechanism, like callbacks or observers. Concentrate all the code related to the domain model in one layer and isolate it from the user interface, application, and infrastructure code. **The domain objects, free of the responsibility of displaying themselves, storing themselves, managing application tasks, and so forth, can be focused on expressing the domain model**. This allows a model to evolve to be rich enough and clear enough to capture essential business knowledge and put it to work.
+
+
+
 ## Aggregate Root
 
 Aggregate Root является шаблоном в DDD. Он представляет собой кластер объектов предметной области, которые можно рассматривать 
