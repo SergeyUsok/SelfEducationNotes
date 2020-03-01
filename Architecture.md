@@ -48,7 +48,11 @@ Layer | Description
 
 The essential principle is that any element of a **layer depends only on other elements in the same layer or on elements of the layers "beneath" it**. Communication upward must pass through some indirect mechanism, like callbacks or observers. Concentrate all the code related to the domain model in one layer and isolate it from the user interface, application, and infrastructure code. **The domain objects, free of the responsibility of displaying themselves, storing themselves, managing application tasks, and so forth, can be focused on expressing the domain model**. This allows a model to evolve to be rich enough and clear enough to capture essential business knowledge and put it to work.
 
+## Entities and Value Objects
 
+**Entity** - single, **identifiable** item of domain design.
+
+**Value Object** - single, **immutable** item which does not have concept of identity in domain design. Value object describes characteristics of a thing.
 
 ## Aggregate Root
 
